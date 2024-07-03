@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -39,8 +41,13 @@ public class Booking {
     private Date createDate;
 
     @Column(name = "booking_date")
-    private Date bookingDate;
+    private LocalDate bookingDate;
 
+    @Column(name = "start_booking")
+    private String startBooking;
+
+    @Column(name = "end_booking")
+    private String endBooking;
 
     @OneToMany(mappedBy = "booking")
     @ToString.Exclude

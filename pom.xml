@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.swd</groupId>
-	<artifactId>PitchManament</artifactId>
+	<artifactId>PitchManagement</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ccp</name>
 	<description>Cat cafe platform project</description>
