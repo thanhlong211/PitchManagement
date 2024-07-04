@@ -26,8 +26,6 @@ public class Customer {
 
     private Date dob;
 
-    @OneToMany(mappedBy = "customer")
-    private List<FollowerCustomer> followerCustomerList;
 
     @OneToMany(mappedBy = "customer")
     private List<Booking> bookingList;

@@ -31,9 +31,18 @@ public class PitchServiceImpl implements PitchService {
                     .build();
         }
 
+        // Validate if price is positive
+        if (createPitchRequest.getPrice() <= 0) {
+            return ResponseObject.builder()
+                    .message("Price must be a positive number")
+                    .statusCode(400)
+                    .build();
+        }
+
         Pitch pitch = pitchRepo.save(
                 Pitch.builder()
                         .name(createPitchRequest.getName())
+                        .price(createPitchRequest.getPrice())
                         .capacity(createPitchRequest.getCapacity())
                         .pitchStatus("ACTIVE")
                         .build()
@@ -56,10 +65,19 @@ public class PitchServiceImpl implements PitchService {
                     .build();
         }
 
+        // Validate if price is positive
+        if (updatePitchRequest.getPrice() <= 0) {
+            return ResponseObject.builder()
+                    .message("Price must be a positive number")
+                    .statusCode(400)
+                    .build();
+        }
+
         // Update existing pitch entity
         Pitch existingPitch = existingPitchOptional.get();
         existingPitch.setName(updatePitchRequest.getName());
         existingPitch.setCapacity(updatePitchRequest.getCapacity());
+        existingPitch.setPrice(updatePitchRequest.getPrice());
 
         // Save the updated pitch entity
         pitchRepo.save(existingPitch);
@@ -69,7 +87,6 @@ public class PitchServiceImpl implements PitchService {
                 .statusCode(200)
                 .build();
     }
-
     @Override
     public ResponseObject changePitchStatus(Integer id, String status) {
         // Find the pitch by ID

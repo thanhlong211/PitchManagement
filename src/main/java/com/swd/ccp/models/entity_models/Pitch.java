@@ -28,6 +28,8 @@ public class Pitch {
 
     private int capacity;
 
+    private float price;
+
     @ManyToOne
     @JoinColumn(name = "shop_id")
     private Shop shop;

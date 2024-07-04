@@ -16,6 +16,7 @@ public class CreatePitchRequest {
     private String name;
 
     private int capacity;
+    private float price;
 
     private Integer shopId;
 }

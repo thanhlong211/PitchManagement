@@ -40,12 +40,6 @@ public class Shop {
 
     @OneToMany(mappedBy = "shop")
     @ToString.Exclude
-    private List<FollowerCustomer> followerCustomerList;
-
-
-
-    @OneToMany(mappedBy = "shop")
-    @ToString.Exclude
     private List<Manager> managerList;
 
 

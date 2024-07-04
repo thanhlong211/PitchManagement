@@ -6,6 +6,7 @@ import lombok.*;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Data
@@ -28,14 +29,7 @@ public class Booking {
     @JoinColumn(name = "pitch_id")
     private Pitch pitch;
 
-
     private String bookingStatus;
-
-    @Column(name = "shop_name")
-    private String shopName;
-
-    @Column(name = "pitch_name")
-    private String pitchName;
 
     @Column(name = "create_date")
     private Date createDate;
@@ -44,12 +38,10 @@ public class Booking {
     private LocalDate bookingDate;
 
     @Column(name = "start_booking")
-    private String startBooking;
+    private LocalTime startBooking;
 
     @Column(name = "end_booking")
-    private String endBooking;
+    private LocalTime endBooking;
 
-    @OneToMany(mappedBy = "booking")
-    @ToString.Exclude
-    private List<BookingDetail> bookingDetailList;
+    private double price;
 }

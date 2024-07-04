@@ -62,6 +62,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
                     accessToken = tokenRepo.save(
                             Token.builder()
+                                    .account(account)
                                     .token(jwtService.generateToken(account))
                                     .type("access")
                                     .status(1)
@@ -70,6 +71,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
                     refreshToken = tokenRepo.save(
                             Token.builder()
+                                    .account(account)
                                     .token(jwtService.generateRefreshToken(account))
                                     .type("refresh")
                                     .status(1)
@@ -158,7 +160,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                             .accountResponse(
                                     AccountResponse
                                             .builder()
-                                            .id(1)
+                                            .id(account.getId())
                                             .email(account.getEmail())
                                             .username(account.getName())
                                             .phone(account.getPhone())

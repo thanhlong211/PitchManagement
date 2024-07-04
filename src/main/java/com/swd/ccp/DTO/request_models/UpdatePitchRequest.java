@@ -13,7 +13,7 @@ public class UpdatePitchRequest {
     private Integer id;
 
     private String name;
-
+    private float price;
     private int capacity;
 
 }

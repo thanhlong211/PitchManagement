@@ -18,4 +18,5 @@ public class PitchResponse {
     private int capacity;
 
     private String shopName;
+    private float price;
 }

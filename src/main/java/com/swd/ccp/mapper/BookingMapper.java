@@ -1,11 +1,9 @@
 package com.swd.ccp.mapper;
 
 import com.swd.ccp.DTO.response_models.PitchResponse;
-import com.swd.ccp.DTO.response_models.ShopResponse;
 import com.swd.ccp.models.entity_models.Pitch;
-import com.swd.ccp.models.entity_models.Shop;
 
-public class PitchMapper {
+public class BookingMapper {
     private static final String DATE_PATTERN = "yyyy-MM-dd";
     private static final String ONGOING_STATUS = "Ongoing";
     private static final String FINISHED_STATUS = "Finished";
