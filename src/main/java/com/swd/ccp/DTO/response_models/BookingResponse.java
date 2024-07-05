@@ -4,6 +4,7 @@ import lombok.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor
@@ -15,7 +16,7 @@ public class BookingResponse {
     private String customerName;
 
     private String pitchName;
-    private String capacity;
+    private Integer capacity;
 
     private String bookingStatus;
 
@@ -23,10 +24,10 @@ public class BookingResponse {
 
     private LocalDate bookingDate;
 
-    private String startBooking;
+    private LocalTime startBooking;
 
-    private String endBooking;
+    private LocalTime endBooking;
 
-    private float price;
+    private double price;
 
 }

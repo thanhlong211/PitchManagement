@@ -33,20 +33,20 @@ public class BookingServiceImpl implements BookingService {
     public ResponseObject createBooking(BookingRequest bookingRequest) {
 
         Optional<Customer> customerOptional = customerRepo.findById(bookingRequest.getCustomerId());
-        Customer customer = customerOptional.orElseThrow(() -> new IllegalArgumentException("Không tìm thấy thông tin khách hàng."));
+        Customer customer = customerOptional.orElseThrow(() -> new IllegalArgumentException("No customer information found."));
 
         Optional<Pitch> pitchOptional = pitchRepo.findById(bookingRequest.getPitchId());
-        Pitch pitch = pitchOptional.orElseThrow(() -> new IllegalArgumentException("Không tìm thấy thông tin sân."));
+        Pitch pitch = pitchOptional.orElseThrow(() -> new IllegalArgumentException("No pitch information found."));
 
         if (bookingRequest.getBookingDate().isBefore(LocalDate.now())) {
             return ResponseObject.builder()
-                    .message("Không thể đặt sân vào ngày trong quá khứ.")
+                    .message("Fields cannot be set to dates in the past.")
                     .statusCode(400)
                     .build();
         }
         if (bookingRequest.getStartBooking().compareTo(bookingRequest.getEndBooking()) >= 0) {
             return ResponseObject.builder()
-                    .message("Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc.")
+                    .message("The start time must be less than the end time.")
                     .statusCode(400)
                     .build();
         }
@@ -59,7 +59,7 @@ public class BookingServiceImpl implements BookingService {
         );
         if (!conflictingBookings.isEmpty()) {
             return ResponseObject.builder()
-                    .message("Không thể đặt sân vào thời gian này vì đã có người đặt trước.")
+                    .message("It is not possible to reserve the field at this time because it is already booked.")
                     .statusCode(400)
                     .build();
         }
@@ -68,7 +68,7 @@ public class BookingServiceImpl implements BookingService {
         long hours = Duration.between(bookingRequest.getStartBooking(), bookingRequest.getEndBooking()).toHours();
         if (hours <= 0) {
             return ResponseObject.builder()
-                    .message("Thời gian đặt sân không hợp lệ.")
+                    .message("Invalid pitch time.")
                     .statusCode(400)
                     .build();
         }
@@ -116,7 +116,7 @@ public class BookingServiceImpl implements BookingService {
                 .build();
     }
     @Override
-    public List<Booking> getAllBookings() {
-        return bookingRepository.findAll();
+    public List<Booking> getAllActiveBookings() {
+        return bookingRepository.findByBookingStatusNot("deactive");
     }
 }

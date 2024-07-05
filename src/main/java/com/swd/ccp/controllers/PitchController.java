@@ -1,15 +1,20 @@
 package com.swd.ccp.controllers;
 
+import com.swd.ccp.DTO.request_models.AvailablePitchRequest;
 import com.swd.ccp.DTO.request_models.CreatePitchRequest;
 import com.swd.ccp.DTO.request_models.UpdatePitchRequest;
 import com.swd.ccp.DTO.response_models.PitchResponse;
 import com.swd.ccp.DTO.response_models.ResponseObject;
 import com.swd.ccp.services.PitchService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @RestController
@@ -55,5 +60,11 @@ public class PitchController {
             @RequestParam(defaultValue = "", name = "search") String search) {
         List<PitchResponse> activePitches = pitchService.getActivePitches(search);
         return ResponseEntity.ok(activePitches);
+    }
+    @PostMapping("/available-pitches")
+    @PreAuthorize("hasAuthority('customer:read')")
+    public ResponseEntity<List<PitchResponse>> getAvailablePitches(@RequestBody AvailablePitchRequest request) {
+        List<PitchResponse> availablePitches = pitchService.getAvailablePitches(request.getBookingDate(), request.getStartBooking(), request.getEndBooking());
+        return new ResponseEntity<>(availablePitches, HttpStatus.OK);
     }
 }

@@ -1,7 +1,9 @@
 package com.swd.ccp.controllers;
 
 import com.swd.ccp.DTO.request_models.BookingRequest;
+import com.swd.ccp.DTO.response_models.BookingResponse;
 import com.swd.ccp.DTO.response_models.ResponseObject;
+import com.swd.ccp.mapper.BookingMapper;
 import com.swd.ccp.models.entity_models.Booking;
 import com.swd.ccp.models.entity_models.Customer;
 import com.swd.ccp.services.BookingService;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/bookings")
@@ -39,8 +42,11 @@ public class BookingController {
     }
     @GetMapping("/all")
     @PreAuthorize("hasAuthority('customer:read')")
-    public ResponseEntity<List<Booking>> getAllBookings() {
-        List<Booking> bookings = bookingService.getAllBookings();
-        return new ResponseEntity<>(bookings, HttpStatus.OK);
+    public ResponseEntity<List<BookingResponse>> getAllBookings() {
+        List<Booking> bookings = bookingService.getAllActiveBookings();
+        List<BookingResponse> bookingResponses = bookings.stream()
+                .map(BookingMapper::bookingToDTO)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(bookingResponses, HttpStatus.OK);
     }
 }

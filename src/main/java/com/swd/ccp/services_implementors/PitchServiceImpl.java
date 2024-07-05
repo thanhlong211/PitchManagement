@@ -5,12 +5,16 @@ import com.swd.ccp.DTO.request_models.UpdatePitchRequest;
 import com.swd.ccp.DTO.response_models.PitchResponse;
 import com.swd.ccp.DTO.response_models.ResponseObject;
 import com.swd.ccp.mapper.PitchMapper;
+import com.swd.ccp.models.entity_models.Booking;
 import com.swd.ccp.models.entity_models.Pitch;
+import com.swd.ccp.repositories.BookingRepo;
 import com.swd.ccp.repositories.PitchRepo;
 import com.swd.ccp.services.PitchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,6 +24,7 @@ import java.util.stream.Collectors;
 public class PitchServiceImpl implements PitchService {
 
     private final PitchRepo pitchRepo;
+    private final BookingRepo bookingRepo;
 
     @Override
     public ResponseObject createPitch(CreatePitchRequest createPitchRequest) {
@@ -140,4 +145,27 @@ public class PitchServiceImpl implements PitchService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<PitchResponse> getAvailablePitches(LocalDate bookingDate, LocalTime startBooking, LocalTime endBooking) {
+        // Get all pitches
+        List<Pitch> allPitches = pitchRepo.findAll();
+
+        // Get all bookings for the specified date and time range
+        List<Booking> conflictingBookings = bookingRepo.findByBookingDateAndStartBookingLessThanEqualAndEndBookingGreaterThanEqual(
+                bookingDate,
+                endBooking,
+                startBooking
+        );
+
+        // Filter out pitches that are booked
+        List<Pitch> availablePitches = allPitches.stream()
+                .filter(pitch -> conflictingBookings.stream()
+                        .noneMatch(booking -> booking.getPitch().equals(pitch)))
+                .collect(Collectors.toList());
+
+        // Map the available pitches to PitchResponse DTOs
+        return availablePitches.stream()
+                .map(PitchMapper::pitchToDTO)
+                .collect(Collectors.toList());
+    }
 }
