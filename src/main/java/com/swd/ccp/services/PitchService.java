@@ -13,7 +13,7 @@ public interface PitchService {
     ResponseObject createPitch(CreatePitchRequest createPitchRequest);
     ResponseObject updatePitch(UpdatePitchRequest updatePitchRequest);
     ResponseObject changePitchStatus(Integer id, String status);
-    List<PitchResponse> getAllPitches(String name);
-    public List<PitchResponse> getActivePitches(String name);
-    List<PitchResponse> getAvailablePitches(LocalDate bookingDate, LocalTime startBooking, LocalTime endBooking);
+    List<PitchResponse> getAllPitchesByShopId(Integer shopId,String name);
+    List<PitchResponse> getActivePitches(Integer shopId, String name);
+    List<PitchResponse> getAvailablePitches(Integer shopId, LocalDate bookingDate, LocalTime startBooking, LocalTime endBooking);
 }

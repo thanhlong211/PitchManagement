@@ -7,9 +7,12 @@ import com.swd.ccp.DTO.response_models.ResponseObject;
 import com.swd.ccp.mapper.PitchMapper;
 import com.swd.ccp.models.entity_models.Booking;
 import com.swd.ccp.models.entity_models.Pitch;
+import com.swd.ccp.models.entity_models.Shop;
 import com.swd.ccp.repositories.BookingRepo;
 import com.swd.ccp.repositories.PitchRepo;
+import com.swd.ccp.repositories.ShopRepo;
 import com.swd.ccp.services.PitchService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +28,7 @@ public class PitchServiceImpl implements PitchService {
 
     private final PitchRepo pitchRepo;
     private final BookingRepo bookingRepo;
+    private final ShopRepo shopRepo;
 
     @Override
     public ResponseObject createPitch(CreatePitchRequest createPitchRequest) {
@@ -116,13 +120,18 @@ public class PitchServiceImpl implements PitchService {
     }
 
     @Override
-    public List<PitchResponse> getAllPitches(String name) {
+    public List<PitchResponse> getAllPitchesByShopId(Integer shopId,String name) {
         List<Pitch> pitches;
+        Optional<Shop> shopOptional = shopRepo.findById(shopId);
 
+        if (!shopOptional.isPresent()) {
+            throw new EntityNotFoundException("Shop not found with id: " + shopId);
+        }
+        Shop shop = shopOptional.get();
         if (name != null && !name.isBlank()) {
-            pitches = pitchRepo.findAllByNameContainingIgnoreCase(name);
+            pitches = pitchRepo.findAllByShopAndNameContainingIgnoreCase(shop,name);
         } else {
-            pitches = pitchRepo.findAll();
+            pitches = pitchRepo.findAllByShop(shop);
         }
 
         return pitches.stream()
@@ -131,13 +140,20 @@ public class PitchServiceImpl implements PitchService {
     }
 
     @Override
-    public List<PitchResponse> getActivePitches(String name) {
+    public List<PitchResponse> getActivePitches(Integer shopId, String name) {
         List<Pitch> activePitches;
+        Optional<Shop> shopOptional = shopRepo.findById(shopId);
+
+        if (!shopOptional.isPresent()) {
+            throw new EntityNotFoundException("Shop not found with id: " + shopId);
+        }
+
+        Shop shop = shopOptional.get();
 
         if (name != null && !name.isEmpty()) {
-            activePitches = pitchRepo.findAllByNameContainingIgnoreCaseAndPitchStatus(name, "ACTIVE");
+            activePitches = pitchRepo.findAllByShopAndNameContainingIgnoreCaseAndPitchStatus(shop, name, "ACTIVE");
         } else {
-            activePitches = pitchRepo.findByPitchStatus("ACTIVE");
+            activePitches = pitchRepo.findAllByShopAndPitchStatus(shop, "ACTIVE");
         }
 
         return activePitches.stream()
@@ -146,9 +162,16 @@ public class PitchServiceImpl implements PitchService {
     }
 
     @Override
-    public List<PitchResponse> getAvailablePitches(LocalDate bookingDate, LocalTime startBooking, LocalTime endBooking) {
-        // Get all pitches
-        List<Pitch> allPitches = pitchRepo.findAll();
+    public List<PitchResponse> getAvailablePitches(Integer shopId, LocalDate bookingDate, LocalTime startBooking, LocalTime endBooking) {
+        // Get all pitches for the specific shopId
+        Optional<Shop> shopOptional = shopRepo.findById(shopId);
+
+        if (!shopOptional.isPresent()) {
+            throw new EntityNotFoundException("Shop not found with id: " + shopId);
+        }
+
+        Shop shop = shopOptional.get();
+        List<Pitch> allPitches = pitchRepo.findAllByShop(shop);
 
         // Get all bookings for the specified date and time range
         List<Booking> conflictingBookings = bookingRepo.findByBookingDateAndStartBookingLessThanEqualAndEndBookingGreaterThanEqual(
@@ -168,4 +191,5 @@ public class PitchServiceImpl implements PitchService {
                 .map(PitchMapper::pitchToDTO)
                 .collect(Collectors.toList());
     }
+
 }

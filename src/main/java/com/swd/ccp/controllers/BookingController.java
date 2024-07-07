@@ -32,6 +32,7 @@ public class BookingController {
         ResponseObject responseObject = bookingService.createBooking(bookingRequest);
         return new ResponseEntity<>(responseObject, HttpStatus.valueOf(responseObject.getStatusCode()));
     }
+
     @PutMapping("/{bookingId}/status")
     @PreAuthorize("hasAuthority('customer:update')")
     public ResponseEntity<ResponseObject> updateBookingStatus(
@@ -40,6 +41,7 @@ public class BookingController {
         ResponseObject responseObject = bookingService.updateBookingStatus(bookingId, newStatus);
         return new ResponseEntity<>(responseObject, HttpStatus.valueOf(responseObject.getStatusCode()));
     }
+
     @GetMapping("/all")
     @PreAuthorize("hasAuthority('owner:read')")
     public ResponseEntity<List<BookingResponse>> getAllBookings() {
@@ -49,10 +51,21 @@ public class BookingController {
                 .collect(Collectors.toList());
         return new ResponseEntity<>(bookingResponses, HttpStatus.OK);
     }
+
     @GetMapping("/customer/{customerId}")
     @PreAuthorize("hasAuthority('customer:read')")
     public ResponseEntity<List<BookingResponse>> getBookingsByCustomerId(@PathVariable Integer customerId) {
         List<Booking> bookings = bookingService.getBookingsByCustomerId(customerId);
+        List<BookingResponse> bookingResponses = bookings.stream()
+                .map(BookingMapper::bookingToDTO)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(bookingResponses, HttpStatus.OK);
+    }
+
+    @GetMapping("/shop/{shopId}/bookings")
+    @PreAuthorize("hasAuthority('owner:read')")
+    public ResponseEntity<List<BookingResponse>> getAllBookingsByShopId(@PathVariable Integer shopId) {
+        List<Booking> bookings = bookingService.getBookingsByShopId(shopId);
         List<BookingResponse> bookingResponses = bookings.stream()
                 .map(BookingMapper::bookingToDTO)
                 .collect(Collectors.toList());

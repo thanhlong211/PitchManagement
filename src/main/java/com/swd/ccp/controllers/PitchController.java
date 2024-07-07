@@ -49,22 +49,27 @@ public class PitchController {
     @GetMapping
     @PreAuthorize("hasAuthority('owner:read')")
     public ResponseEntity<List<PitchResponse>> getAllPitches(
+            @RequestParam Integer shopId,
             @RequestParam(defaultValue = "", name = "search") String search) {
-        List<PitchResponse> pitches = pitchService.getAllPitches(search);
+        List<PitchResponse> pitches = pitchService.getAllPitchesByShopId(shopId,search);
         return ResponseEntity.ok(pitches);
     }
 
     @GetMapping("/active")
     @PreAuthorize("hasAuthority('customer:read')")
     public ResponseEntity<List<PitchResponse>> getActivePitches(
+            @RequestParam Integer shopId,
             @RequestParam(defaultValue = "", name = "search") String search) {
-        List<PitchResponse> activePitches = pitchService.getActivePitches(search);
+        List<PitchResponse> activePitches = pitchService.getActivePitches(shopId, search);
         return ResponseEntity.ok(activePitches);
     }
+
     @PostMapping("/available-pitches")
     @PreAuthorize("hasAuthority('customer:read')")
-    public ResponseEntity<List<PitchResponse>> getAvailablePitches(@RequestBody AvailablePitchRequest request) {
-        List<PitchResponse> availablePitches = pitchService.getAvailablePitches(request.getBookingDate(), request.getStartBooking(), request.getEndBooking());
+    public ResponseEntity<List<PitchResponse>> getAvailablePitches(
+            @RequestParam Integer shopId,
+            @RequestBody AvailablePitchRequest request) {
+        List<PitchResponse> availablePitches = pitchService.getAvailablePitches(shopId, request.getBookingDate(), request.getStartBooking(), request.getEndBooking());
         return new ResponseEntity<>(availablePitches, HttpStatus.OK);
     }
 }

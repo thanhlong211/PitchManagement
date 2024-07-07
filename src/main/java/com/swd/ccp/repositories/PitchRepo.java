@@ -12,7 +12,13 @@ public interface PitchRepo extends JpaRepository<Pitch,Integer> {
 
     List<Pitch> findByPitchStatus(String status);
 
-    List<Pitch> findAllByNameContainingIgnoreCase(String name);
+    List<Pitch> findAllByShopAndNameContainingIgnoreCase(Shop shop,String name);
 
-    List<Pitch> findAllByNameContainingIgnoreCaseAndPitchStatus(String name, String active);
+
+
+    List<Pitch> findAllByShopAndNameContainingIgnoreCaseAndPitchStatus(Shop shop, String name, String active);
+
+    List<Pitch> findAllByShopAndPitchStatus(Shop shop, String active);
+
+    List<Pitch> findAllByShop(Shop shop);
 }

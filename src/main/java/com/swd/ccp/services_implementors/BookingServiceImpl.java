@@ -123,4 +123,8 @@ public class BookingServiceImpl implements BookingService {
     public List<Booking> getBookingsByCustomerId(Integer customerId) {
         return bookingRepository.findByCustomerIdAndActiveStatus(customerId);
     }
+    @Override
+    public List<Booking> getBookingsByShopId(Integer shopId) {
+        return bookingRepository.findByPitchShopId(shopId);
+    }
 }
