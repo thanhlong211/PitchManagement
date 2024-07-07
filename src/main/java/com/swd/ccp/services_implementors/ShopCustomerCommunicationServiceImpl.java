@@ -48,10 +48,9 @@ public class ShopCustomerCommunicationServiceImpl implements ShopCustomerCommuni
         return shopCustomerCommunicationRepo.save(communication);
     }
     @Override
-    public List<ShopCustomerCommunicationResponse> getAllCommunications() {
-        List<ShopCustomerCommunication> communications = shopCustomerCommunicationRepo.findAll();
+    public List<ShopCustomerCommunicationResponse> getAllCommunicationsByStatus(String status) {
+        List<ShopCustomerCommunication> communications = shopCustomerCommunicationRepo.findByCustomerAccountStatus(status);
         return communications.stream()
-                .filter(communication -> communication.getCustomer().getAccount().isActive())
                 .map(ShopCustomerCommunicationMapper::communicationToDTO)
                 .collect(Collectors.toList());
     }

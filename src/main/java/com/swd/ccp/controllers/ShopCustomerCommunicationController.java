@@ -27,7 +27,7 @@ public class ShopCustomerCommunicationController {
 
     @GetMapping
     public ResponseEntity<List<ShopCustomerCommunicationResponse>> getAllCommunications() {
-        List<ShopCustomerCommunicationResponse> responses = communicationService.getAllCommunications();
+        List<ShopCustomerCommunicationResponse> responses = communicationService.getAllCommunicationsByStatus("active");
         return ResponseEntity.ok(responses);
     }
 }

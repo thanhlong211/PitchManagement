@@ -84,17 +84,19 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountRepo.findById(accountId)
                 .orElseThrow(() -> new EntityNotFoundException("Account not found with id: " + accountId));
 
-        if (account.isActive()) {
-            account.setActive(false);
+        if (account.getStatus().equals("active")) {
+            account.setStatus("deactive");
             accountRepo.save(account);
             return ResponseObject.<Account>builder()
                     .data(null)
                     .message("Account deactivated successfully")
+                    .statusCode(200)
                     .build();
         }
 
         return ResponseObject.<Account>builder()
                 .message("Account is already deactivated")
+                .statusCode(400)
                 .build();
     }
 
@@ -103,8 +105,8 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountRepo.findById(accountId)
                 .orElseThrow(() -> new EntityNotFoundException("Account not found with id: " + accountId));
 
-        if (!account.isActive()) {
-            account.setActive(true);
+        if (account.getStatus().equals("deactive")) {
+            account.setStatus("active");
             accountRepo.save(account);
             return ResponseObject.<Account>builder()
                     .data(null)

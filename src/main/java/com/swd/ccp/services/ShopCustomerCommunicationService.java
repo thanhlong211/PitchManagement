@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface ShopCustomerCommunicationService {
     ShopCustomerCommunication createCommunication(ShopCustomerCommunicationRequest request);
-    List<ShopCustomerCommunicationResponse> getAllCommunications();
+    List<ShopCustomerCommunicationResponse> getAllCommunicationsByStatus(String status);
 }

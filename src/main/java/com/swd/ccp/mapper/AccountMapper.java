@@ -19,7 +19,6 @@ public class AccountMapper {
         dto.setRole(account.getRole().toString());
         dto.setStatus(account.getStatus());
         dto.setPhone(account.getPhone());
-        dto.setActive(account.isActive());
         return dto;
     }
 
