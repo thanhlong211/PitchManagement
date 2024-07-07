@@ -32,8 +32,9 @@ CREATE TABLE `account` (
   `phone` varchar(255) DEFAULT NULL,
   `role` enum('CUSTOMER','OWNER','ADMIN') DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
+  `active` bit(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +43,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (1,'demo','demo','$2a$10$I7jeZPiMBdDA2WqisbiOOupDnybfB/A1E7qVCQe1KC6MiOlPrZuIu','string','CUSTOMER','active');
+INSERT INTO `account` VALUES (1,'demo','demo','$2a$10$I7jeZPiMBdDA2WqisbiOOupDnybfB/A1E7qVCQe1KC6MiOlPrZuIu','string','CUSTOMER','active',_binary ''),(3,'admin','admin','$2a$10$O1WbpHcmvI6hQaOUndLaiumVQGhemCDPqkkquLqCWfpRG5j1QOZh.','01234565','ADMIN','active',_binary '\0'),(4,'owner','admin','$2a$10$rresBOlP7FgwevEMNPNrp.6naWyuV4es5cSnjqyraNiv/XmYEo6kq','01234565','OWNER','active',_binary '\0');
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +97,7 @@ CREATE TABLE `customer` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_jwt2qo9oj3wd7ribjkymryp8s` (`account_id`),
   CONSTRAINT `FKn9x2k8svpxj3r328iy1rpur83` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,7 +106,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (1,'2024-07-04','string',1);
+INSERT INTO `customer` VALUES (1,'2024-07-04','string',1),(3,'2024-07-07','string',3),(4,'2024-07-07','string',4);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,7 +245,7 @@ CREATE TABLE `token` (
   PRIMARY KEY (`id`),
   KEY `FKftkstvcfb74ogw02bo5261kno` (`account_id`),
   CONSTRAINT `FKftkstvcfb74ogw02bo5261kno` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -253,7 +254,7 @@ CREATE TABLE `token` (
 
 LOCK TABLES `token` WRITE;
 /*!40000 ALTER TABLE `token` DISABLE KEYS */;
-INSERT INTO `token` VALUES (1,0,'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJkZW1vIiwiaWF0IjoxNzIwMDY5ODQ1LCJleHAiOjE3MjAwODA2NDV9.XxV8IOWLSKkpdGaKTeAogDjZJ6b25QBTQcmUdKEbq9QL2Ve2pCqo3DMdjuLCkz0w','access',1),(2,1,'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJkZW1vIiwiaWF0IjoxNzIwMDY5ODQ1LCJleHAiOjE3MjA1MDE4NDV9.loLsYBFy7iolh2OhhcyjbG_Xm9II2ETViPbh5MYhnIznTVsI-fr50g4rVdA2u-Mn','refresh',1),(3,1,'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJkZW1vIiwiaWF0IjoxNzIwMTkzMjcxLCJleHAiOjE3MjAyMDQwNzF9.fZLcIjBU0ktQ7kYCul5XcsUVDkMjKt5R2JGMLfxNvcptcCIOV0Ozr-yVGLxbtCEF','access',1);
+INSERT INTO `token` VALUES (1,0,'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJkZW1vIiwiaWF0IjoxNzIwMDY5ODQ1LCJleHAiOjE3MjAwODA2NDV9.XxV8IOWLSKkpdGaKTeAogDjZJ6b25QBTQcmUdKEbq9QL2Ve2pCqo3DMdjuLCkz0w','access',1),(2,1,'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJkZW1vIiwiaWF0IjoxNzIwMDY5ODQ1LCJleHAiOjE3MjA1MDE4NDV9.loLsYBFy7iolh2OhhcyjbG_Xm9II2ETViPbh5MYhnIznTVsI-fr50g4rVdA2u-Mn','refresh',1),(3,1,'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJkZW1vIiwiaWF0IjoxNzIwMTkzMjcxLCJleHAiOjE3MjAyMDQwNzF9.fZLcIjBU0ktQ7kYCul5XcsUVDkMjKt5R2JGMLfxNvcptcCIOV0Ozr-yVGLxbtCEF','access',1),(8,0,'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcyMDMyODQyMiwiZXhwIjoxNzIwMzM5MjIyfQ.edtWRVlOzP6_Wb2S7nw0XAa8-zdd8RZryGzrJBYvI1Vng4WA9eZVbwAclpDnVe-N','access',3),(9,0,'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcyMDMyODQyMiwiZXhwIjoxNzIwNzYwNDIyfQ.ZvXQgCQkS05rgVVjJ8pzy3Tfv0jrv1Crxngiiv6thmPfpJVLLvaxGJtMmxYXaGJE','refresh',3),(10,0,'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcyMDMyODQ4NSwiZXhwIjoxNzIwMzM5Mjg1fQ.FaHNSVYemeI7q8NXeXIfiZEmegLfinezkRCBQD8LPot3X_RjOddsAjxqvmPNPKqG','access',3),(11,0,'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcyMDMyODQ4NSwiZXhwIjoxNzIwNzYwNDg1fQ.xVMV1dTU5SxUTeUIC1QwNO6DuWS8O6gFGbBjNHAvw0qPrTDDJ2kK6RIQnwBhqQOF','refresh',3),(12,1,'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJvd25lciIsImlhdCI6MTcyMDMyODYyMSwiZXhwIjoxNzIwMzM5NDIxfQ.cQoeVMiTBuThJgzYEgmlcqh2nIouG-ke8wrm57TGWFXITRV0zUwrMmY_h1kuPNnf','access',4),(13,1,'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJvd25lciIsImlhdCI6MTcyMDMyODYyMSwiZXhwIjoxNzIwNzYwNjIxfQ.h2TU0Bh2ndLhaX_z7jxfVf8OL0nIgy4q0BXSxaf7X5j5tjgn4tvJpKmRCbweOH_G','refresh',4),(14,0,'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcyMDMzMDE2MiwiZXhwIjoxNzIwMzQwOTYyfQ.s6TBbeSnSJveOejkF6a7tx3BhHqzTxPH_oIfp9GYV9jEZ7epAsK4-Qo42I5xL5Vg','access',3),(15,0,'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcyMDMzMDE2MiwiZXhwIjoxNzIwNzYyMTYyfQ.9yIW_-sIf2fIC6EiI1OL9Eegy22DHBpIDuWWqoeR5BRyFVyQv5YB0ugjZWS3zXur','refresh',3),(16,1,'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcyMDMzMDQzNCwiZXhwIjoxNzIwMzQxMjM0fQ.8lDMvjO2ecWT3gG5Ej4Hhoclch3qSomw1KkMB3iSAFe0IRY8sbi743D115hArsnx','access',3),(17,1,'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcyMDMzMDQzNCwiZXhwIjoxNzIwNzYyNDM0fQ.RnjW2ryysAb4QYFxUXjazaVDGMgXYcKtAWKK_PlPgqGUO2tCWW7PzwrDzUwzr7v0','refresh',3);
 /*!40000 ALTER TABLE `token` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -266,4 +267,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-05 23:10:32
+-- Dump completed on 2024-07-07 13:22:02

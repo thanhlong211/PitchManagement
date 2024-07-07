@@ -16,4 +16,5 @@ public interface AccountRepo extends JpaRepository<Account, Integer> {
     Optional<Account> findByEmailAndPassword(String email, String password);
 
     List<Account> findByRole(Role role);
+    List<Account> findAllByActiveTrue();
 }

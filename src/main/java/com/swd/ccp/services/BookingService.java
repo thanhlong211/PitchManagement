@@ -12,4 +12,5 @@ public interface BookingService {
     ResponseObject createBooking(BookingRequest bookingRequest);
     ResponseObject updateBookingStatus(Integer bookingId, String newStatus);
     List<Booking> getAllActiveBookings();
+    List<Booking> getBookingsByCustomerId(Integer customerId);
 }

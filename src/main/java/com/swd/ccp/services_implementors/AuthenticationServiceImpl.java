@@ -258,4 +258,85 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
         return tokenList;
     }
+    @Override
+    public RegisterResponse CreateOwner(RegisterRequest request) {
+        if (isStringValid(request.getEmail()) && isStringValid(request.getPassword())) {
+            Account account = accountRepo.findByEmail(request.getEmail()).orElse(null);
+            Customer customer;
+            Token accessToken;
+            Token refreshToken;
+
+            if (account == null) {
+                account = accountRepo.save(
+                        Account.builder()
+                                .email(request.getEmail())
+                                .name(request.getName())
+                                .password(passwordEncoder.encode(request.getPassword()))
+                                .phone(isStringValid(request.getPhone()) ? request.getPhone() : null)
+                                .status("active")
+                                .role(Role.OWNER)
+                                .build()
+                );
+
+                accessToken = tokenRepo.save(
+                        Token.builder()
+                                .account(account)
+                                .token(jwtService.generateToken(account))
+                                .type("access")
+                                .status(1)
+                                .build()
+                );
+
+                refreshToken = tokenRepo.save(
+                        Token.builder()
+                                .account(account)
+                                .token(jwtService.generateRefreshToken(account))
+                                .type("refresh")
+                                .status(1)
+                                .build()
+                );
+
+                customer = customerRepo.save(
+                        Customer.builder()
+                                .account(account)
+                                .gender(isStringValid(request.getGender()) ? request.getGender() : null)
+                                .dob(request.getDob() != null ? request.getDob() : null)
+                                .build()
+                );
+
+                return RegisterResponse.builder()
+                        .message("Register successfully")
+                        .status(true)
+                        .accessToken(accessToken.getToken())
+                        .refreshToken(refreshToken.getToken())
+                        .accountResponse(
+                                AccountResponse.builder()
+                                        .id(customer.getAccount().getId())
+                                        .email(customer.getAccount().getEmail())
+                                        .username(customer.getAccount().getUsername())
+                                        .phone(customer.getAccount().getPhone())
+                                        .dob(customer.getDob())
+                                        .gender(customer.getGender())
+                                        .status(customer.getAccount().getStatus())
+                                        .role(customer.getAccount().getRole().name())
+                                        .build()
+                        )
+                        .build();
+            }
+            return RegisterResponse.builder()
+                    .message("Account is already existed")
+                    .status(false)
+                    .accessToken(null)
+                    .refreshToken(null)
+                    .accountResponse(null)
+                    .build();
+        }
+        return RegisterResponse.builder()
+                .message("Unmatched password and confirmed password")
+                .status(false)
+                .accessToken(null)
+                .refreshToken(null)
+                .accountResponse(null)
+                .build();
+    }
 }

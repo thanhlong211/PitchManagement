@@ -41,9 +41,18 @@ public class BookingController {
         return new ResponseEntity<>(responseObject, HttpStatus.valueOf(responseObject.getStatusCode()));
     }
     @GetMapping("/all")
-    @PreAuthorize("hasAuthority('customer:read')")
+    @PreAuthorize("hasAuthority('owner:read')")
     public ResponseEntity<List<BookingResponse>> getAllBookings() {
         List<Booking> bookings = bookingService.getAllActiveBookings();
+        List<BookingResponse> bookingResponses = bookings.stream()
+                .map(BookingMapper::bookingToDTO)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(bookingResponses, HttpStatus.OK);
+    }
+    @GetMapping("/customer/{customerId}")
+    @PreAuthorize("hasAuthority('customer:read')")
+    public ResponseEntity<List<BookingResponse>> getBookingsByCustomerId(@PathVariable Integer customerId) {
+        List<Booking> bookings = bookingService.getBookingsByCustomerId(customerId);
         List<BookingResponse> bookingResponses = bookings.stream()
                 .map(BookingMapper::bookingToDTO)
                 .collect(Collectors.toList());

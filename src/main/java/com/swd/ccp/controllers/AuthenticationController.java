@@ -6,21 +6,26 @@ import com.swd.ccp.DTO.request_models.LoginRequest;
 import com.swd.ccp.DTO.request_models.RegisterRequest;
 import com.swd.ccp.DTO.response_models.CheckMailExistedResponse;
 import com.swd.ccp.DTO.response_models.LoginResponse;
+import com.swd.ccp.DTO.response_models.LogoutResponse;
 import com.swd.ccp.DTO.response_models.RegisterResponse;
+import com.swd.ccp.services.AccountService;
 import com.swd.ccp.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
+    private final AccountService accountService;
 
+    @GetMapping("/logout")
+    public ResponseEntity<LogoutResponse> logout(){
+        return ResponseEntity.ok().body(accountService.logout());
+    }
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request){
         return ResponseEntity.ok().body(authenticationService.login(request));
@@ -36,5 +41,6 @@ public class AuthenticationController {
     public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest request){
         return ResponseEntity.ok().body(authenticationService.register(request));
     }
+
 
 }

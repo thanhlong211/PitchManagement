@@ -51,6 +51,7 @@ public class ShopCustomerCommunicationServiceImpl implements ShopCustomerCommuni
     public List<ShopCustomerCommunicationResponse> getAllCommunications() {
         List<ShopCustomerCommunication> communications = shopCustomerCommunicationRepo.findAll();
         return communications.stream()
+                .filter(communication -> communication.getCustomer().getAccount().isActive())
                 .map(ShopCustomerCommunicationMapper::communicationToDTO)
                 .collect(Collectors.toList());
     }

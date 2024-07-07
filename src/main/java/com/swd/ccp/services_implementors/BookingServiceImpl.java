@@ -117,6 +117,10 @@ public class BookingServiceImpl implements BookingService {
     }
     @Override
     public List<Booking> getAllActiveBookings() {
-        return bookingRepository.findByBookingStatusNot("deactive");
+        return bookingRepository.findAllActiveBookings();
+    }
+    @Override
+    public List<Booking> getBookingsByCustomerId(Integer customerId) {
+        return bookingRepository.findByCustomerIdAndActiveStatus(customerId);
     }
 }

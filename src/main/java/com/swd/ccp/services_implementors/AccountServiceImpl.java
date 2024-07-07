@@ -1,16 +1,23 @@
 package com.swd.ccp.services_implementors;
 
+import com.swd.ccp.DTO.response_models.AccountDto;
+import com.swd.ccp.DTO.response_models.AccountResponse;
 import com.swd.ccp.DTO.response_models.LogoutResponse;
+import com.swd.ccp.DTO.response_models.ResponseObject;
+import com.swd.ccp.mapper.AccountMapper;
 import com.swd.ccp.models.entity_models.Account;
 import com.swd.ccp.models.entity_models.Token;
 
 import com.swd.ccp.repositories.AccountRepo;
 import com.swd.ccp.repositories.TokenRepo;
 import com.swd.ccp.services.AccountService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +26,7 @@ public class AccountServiceImpl implements AccountService {
     private final AccountRepo accountRepo;
 
     private final TokenRepo tokenRepo;
+    private final AccountMapper accountMapper;
     @Override
     public String getAccessToken(Integer accountID) {
         Account account = accountRepo.findById(accountID).orElse(null);
@@ -63,4 +71,51 @@ public class AccountServiceImpl implements AccountService {
         }
         return LogoutResponse.builder().status(false).message("Ooh! Something happen").build();
     }
+    @Override
+    public List<AccountDto> getAllActiveAccountDTOs() {
+        List<Account> accounts = accountRepo.findAllByActiveTrue();
+        return accountMapper.toDTOList(accounts);
+    }
+
+
+
+    @Override
+    public ResponseObject deactivateAccount(Integer accountId) {
+        Account account = accountRepo.findById(accountId)
+                .orElseThrow(() -> new EntityNotFoundException("Account not found with id: " + accountId));
+
+        if (account.isActive()) {
+            account.setActive(false);
+            accountRepo.save(account);
+            return ResponseObject.<Account>builder()
+                    .data(null)
+                    .message("Account deactivated successfully")
+                    .build();
+        }
+
+        return ResponseObject.<Account>builder()
+                .message("Account is already deactivated")
+                .build();
+    }
+
+    @Override
+    public ResponseObject activateAccount(Integer accountId) {
+        Account account = accountRepo.findById(accountId)
+                .orElseThrow(() -> new EntityNotFoundException("Account not found with id: " + accountId));
+
+        if (!account.isActive()) {
+            account.setActive(true);
+            accountRepo.save(account);
+            return ResponseObject.<Account>builder()
+                    .data(null)
+                    .message("Account activated successfully")
+                    .build();
+        }
+
+        return ResponseObject.<Account>builder()
+                .message("Account is already active")
+                .build();
+    }
+
+
 }

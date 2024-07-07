@@ -3,6 +3,7 @@ com\swd\ccp\DTO\request_models\UpdatePitchRequest$UpdatePitchRequestBuilder.clas
 com\swd\ccp\services_implementors\JWTServiceImpl.class
 com\swd\ccp\DTO\response_models\LogoutResponse.class
 com\swd\ccp\services\AccountService.class
+com\swd\ccp\DTO\response_models\AccountDto.class
 com\swd\ccp\models\entity_models\Pitch.class
 com\swd\ccp\services\AuthenticationService.class
 com\swd\ccp\DTO\request_models\ListRequest$ListRequestBuilder.class
@@ -16,7 +17,6 @@ com\swd\ccp\services\JWTService.class
 com\swd\ccp\services_implementors\UserServiceImpl.class
 com\swd\ccp\mapper\ShopMapper.class
 com\swd\ccp\services\ShopService.class
-com\swd\ccp\controllers\AdminController.class
 com\swd\ccp\services_implementors\PitchServiceImpl.class
 com\swd\ccp\DTO\request_models\ListRequest.class
 com\swd\ccp\DTO\request_models\PaginationRequest$PaginationRequestBuilder.class
@@ -93,6 +93,8 @@ com\swd\ccp\DTO\response_models\GetAllAccountAdminResponse$AccountResponse.class
 com\swd\ccp\enums\Permission.class
 com\swd\ccp\services\CustomerService.class
 com\swd\ccp\models\entity_models\Token$TokenBuilder.class
+com\swd\ccp\DTO\response_models\AccountDto$AccountDtoBuilder.class
+com\swd\ccp\mapper\AccountMapper.class
 com\swd\ccp\models\entity_models\Booking$BookingBuilder.class
 com\swd\ccp\services\ShopCustomerCommunicationService.class
 com\swd\ccp\services\BookingService.class
