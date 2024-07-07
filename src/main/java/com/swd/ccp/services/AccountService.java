@@ -17,7 +17,7 @@ public interface AccountService {
     Account getCurrentLoggedUser();
 
     LogoutResponse logout();
-    List<AccountDto> getAllActiveAccountDTOs();
+    List<AccountDto> getAllAccountDTOs();
     ResponseObject deactivateAccount(Integer accountId);
     ResponseObject activateAccount(Integer accountId);
 }

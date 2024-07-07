@@ -22,10 +22,10 @@ public class AccountController {
     private final AccountService accountService;
     private final AuthenticationService authenticationService;
 
-    @GetMapping("/active")
+    @GetMapping()
     @PreAuthorize("hasAuthority('admin:read')")
-    public ResponseEntity<List<AccountDto>> getAllActiveAccounts() {
-        List<AccountDto> accountDTOs = accountService.getAllActiveAccountDTOs();
+    public ResponseEntity<List<AccountDto>> getAllAccounts() {
+        List<AccountDto> accountDTOs = accountService.getAllAccountDTOs();
         return ResponseEntity.ok(accountDTOs);
     }
 

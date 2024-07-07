@@ -19,7 +19,7 @@ public class AccountDto {
     private String username;
 
     private String phone;
-
+    private boolean active;
 
     private String status;
 

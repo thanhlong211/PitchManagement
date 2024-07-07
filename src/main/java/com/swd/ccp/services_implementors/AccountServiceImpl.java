@@ -72,8 +72,8 @@ public class AccountServiceImpl implements AccountService {
         return LogoutResponse.builder().status(false).message("Ooh! Something happen").build();
     }
     @Override
-    public List<AccountDto> getAllActiveAccountDTOs() {
-        List<Account> accounts = accountRepo.findAllByActiveTrue();
+    public List<AccountDto> getAllAccountDTOs() {
+        List<Account> accounts = accountRepo.findAll();
         return accountMapper.toDTOList(accounts);
     }
 
