@@ -48,7 +48,21 @@ public class PitchServiceImpl implements PitchService {
                     .build();
         }
 
-        Pitch pitch = pitchRepo.save(
+        if (createPitchRequest.getShopId() != null) {
+            Optional<Shop> shopOptional = shopRepo.findById(createPitchRequest.getShopId());
+            if (!shopOptional.isPresent()) {
+                return ResponseObject.builder()
+                        .message("Shop not found for provided shopId")
+                        .statusCode(404)
+                        .build();
+            }
+        } else {
+            return ResponseObject.builder()
+                    .message("ShopId must be provided")
+                    .statusCode(400)
+                    .build();
+        }
+        pitchRepo.save(
                 Pitch.builder()
                         .name(createPitchRequest.getName())
                         .price(createPitchRequest.getPrice())

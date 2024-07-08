@@ -1,11 +1,12 @@
+com\swd\ccp\mapper\ProfileMapper.class
 com\swd\ccp\configurations\SecurityConfig.class
 com\swd\ccp\DTO\request_models\UpdatePitchRequest$UpdatePitchRequestBuilder.class
-com\swd\ccp\services_implementors\JWTServiceImpl.class
 com\swd\ccp\DTO\response_models\LogoutResponse.class
 com\swd\ccp\services\AccountService.class
 com\swd\ccp\DTO\response_models\AccountDto.class
 com\swd\ccp\models\entity_models\Pitch.class
 com\swd\ccp\services\AuthenticationService.class
+com\swd\ccp\DTO\response_models\ProfileResponse.class
 com\swd\ccp\DTO\request_models\ListRequest$ListRequestBuilder.class
 com\swd\ccp\DTO\response_models\PitchResponse$PitchResponseBuilder.class
 com\swd\ccp\models\entity_models\Booking.class
@@ -13,8 +14,7 @@ com\swd\ccp\repositories\BookingRepo.class
 com\swd\ccp\models\entity_models\Account$AccountBuilder.class
 com\swd\ccp\DTO\response_models\ShopResponse.class
 com\swd\ccp\DTO\response_models\RefreshResponse.class
-com\swd\ccp\services\JWTService.class
-com\swd\ccp\services_implementors\UserServiceImpl.class
+com\swd\ccp\repositories\ManagerRepo.class
 com\swd\ccp\mapper\ShopMapper.class
 com\swd\ccp\services\ShopService.class
 com\swd\ccp\services_implementors\PitchServiceImpl.class
@@ -60,11 +60,11 @@ com\swd\ccp\DTO\response_models\BookingResponse.class
 com\swd\ccp\models\entity_models\Shop$ShopBuilder.class
 com\swd\ccp\DTO\response_models\AccountResponse.class
 com\swd\ccp\repositories\CustomerRepo.class
-com\swd\ccp\controllers\UserController.class
 com\swd\ccp\services_implementors\CustomerServiceImpl.class
 com\swd\ccp\DTO\request_models\RegisterRequest.class
 com\swd\ccp\DTO\response_models\RegisterResponse.class
 com\swd\ccp\models\entity_models\Customer$CustomerBuilder.class
+com\swd\ccp\DTO\response_models\ProfileResponse$ProfileResponseBuilder.class
 com\swd\ccp\DTO\request_models\LoginRequest.class
 com\swd\ccp\DTO\response_models\LoginResponse.class
 com\swd\ccp\DTO\response_models\GetAllAccountAdminResponse.class
@@ -79,7 +79,6 @@ com\swd\ccp\configurations\OpenAPIConfig.class
 com\swd\ccp\DTO\request_models\CheckMailExistedRequest$CheckMailExistedRequestBuilder.class
 com\swd\ccp\DTO\request_models\CheckMailExistedRequest.class
 com\swd\ccp\DTO\request_models\UpdatePitchRequest.class
-com\swd\ccp\services\UserService.class
 com\swd\ccp\controllers\ShopCustomerCommunicationController.class
 com\swd\ccp\DTO\request_models\UpdateShopRequest.class
 com\swd\ccp\DTO\response_models\PitchResponse.class
@@ -88,7 +87,6 @@ com\swd\ccp\DTO\request_models\LoginRequest$LoginRequestBuilder.class
 com\swd\ccp\DTO\response_models\CheckMailExistedResponse$CheckMailExistedResponseBuilder.class
 com\swd\ccp\DTO\response_models\ResponseObject$ResponseObjectBuilder.class
 com\swd\ccp\DTO\response_models\ResponseObject.class
-com\swd\ccp\configurations\JWTAuthenticationFilter.class
 com\swd\ccp\DTO\response_models\GetAllAccountAdminResponse$AccountResponse.class
 com\swd\ccp\enums\Permission.class
 com\swd\ccp\services\CustomerService.class

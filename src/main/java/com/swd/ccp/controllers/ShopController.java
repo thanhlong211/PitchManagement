@@ -20,44 +20,38 @@ import java.util.List;
 public class ShopController {
     private final ShopService shopService;
 
-    @PostMapping()
-    @PreAuthorize("hasAuthority('admin:create')")
+    @PostMapping("/admin/create_shop")
     public ResponseEntity<ResponseObject> createShop(@RequestBody CreateShopRequest createShopRequest) {
         ResponseObject response = shopService.CreateShop(createShopRequest);
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatusCode()));
     }
 
-    @PutMapping()
-    @PreAuthorize("hasAuthority('admin:update')")
+    @PutMapping("/admin/update_shop")
     public ResponseEntity<ResponseObject> updateShop(@RequestBody UpdateShopRequest updateShopRequest) {
         ResponseObject response = shopService.updateShop(updateShopRequest);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
-    @PutMapping("/activate/{id}")
-    @PreAuthorize("hasAuthority('admin:update')")
+    @PutMapping("/admin/activate/{id}")
     public ResponseEntity<ResponseObject> activateShop(@PathVariable Integer id) {
         ResponseObject response = shopService.changeShopStatus(id, "ACTIVE");
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
-    @PutMapping("/deactivate/{id}")
-    @PreAuthorize("hasAuthority('admin:update')")
+    @PutMapping("/admin/deactivate/{id}")
     public ResponseEntity<ResponseObject> deactivateShop(@PathVariable Integer id) {
         ResponseObject response = shopService.changeShopStatus(id, "INACTIVE");
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
-    @GetMapping("/shops")
-    @PreAuthorize("hasAuthority('admin:read')")
+    @GetMapping("/admin/all")
     public ResponseEntity<List<ShopResponse>> getAllShops(
             @RequestParam(defaultValue = "", name = "search") String search) {
         List<ShopResponse> shops = shopService.getAllShops(search);
         return ResponseEntity.ok(shops);
     }
 
-    @GetMapping("/shops/active")
-    @PreAuthorize("hasAuthority('customer:read')")
+    @GetMapping("/customer/shops/active")
     public ResponseEntity<List<ShopResponse>> getAllActiveShops(
             @RequestParam(defaultValue = "", name = "search") String search) {
         List<ShopResponse> activeShops = shopService.getAllActiveShops(search);

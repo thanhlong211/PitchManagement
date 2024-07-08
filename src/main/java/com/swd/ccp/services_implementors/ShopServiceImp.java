@@ -5,7 +5,11 @@ import com.swd.ccp.DTO.request_models.UpdateShopRequest;
 import com.swd.ccp.DTO.response_models.ResponseObject;
 import com.swd.ccp.DTO.response_models.ShopResponse;
 import com.swd.ccp.mapper.ShopMapper;
+import com.swd.ccp.models.entity_models.Account;
+import com.swd.ccp.models.entity_models.Manager;
 import com.swd.ccp.models.entity_models.Shop;
+import com.swd.ccp.repositories.AccountRepo;
+import com.swd.ccp.repositories.ManagerRepo;
 import com.swd.ccp.repositories.ShopRepo;
 import com.swd.ccp.services.ShopService;
 import lombok.RequiredArgsConstructor;
@@ -21,42 +25,62 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ShopServiceImp implements ShopService {
     private final ShopRepo shopRepo;
-    @Override
-    public ResponseObject CreateShop (CreateShopRequest createShopRequest){
-        if (shopRepo.findAllByName(createShopRequest.getName()).isPresent()) {
+    private final ManagerRepo managerRepo;
+    private final AccountRepo accountRepo;
 
+    @Override
+    public ResponseObject CreateShop(CreateShopRequest createShopRequest) {
+        // Validate shop name
+        if (shopRepo.findAllByName(createShopRequest.getName()).isPresent()) {
             return ResponseObject.builder()
-                    .message("Shop name had existed")
+                    .message("Shop name already exists")
                     .statusCode(400)
                     .build();
         }
-        if (createShopRequest.getName() == null) {
 
+        // Validate shop name is not null
+        if (createShopRequest.getName() == null) {
             return ResponseObject.builder()
                     .message("Shop name cannot be null")
                     .statusCode(400)
                     .build();
         }
 
-        Shop shop = shopRepo.save(
-                Shop.builder()
-                        .avatar(createShopRequest.getAvatar())
-                        .name(createShopRequest.getName())
-                        .phone(createShopRequest.getPhone())
-                        .address(createShopRequest.getAddress())
-                        .openTime(createShopRequest.getOpenTime())
-                        .closeTime(createShopRequest.getCloseTime())
-                        .status("ACTIVE")
-                        .build()
-        );
-        shopRepo.save(shop);
+        // Build and save the shop entity
+        Shop shop = Shop.builder()
+                .avatar(createShopRequest.getAvatar())
+                .name(createShopRequest.getName())
+                .phone(createShopRequest.getPhone())
+                .address(createShopRequest.getAddress())
+                .openTime(createShopRequest.getOpenTime())
+                .closeTime(createShopRequest.getCloseTime())
+                .status("ACTIVE")
+                .build();
+        Shop savedShop = shopRepo.save(shop);
 
+        // Fetch the account of the owner
+        Optional<Account> accountOptional = accountRepo.findById(createShopRequest.getOwner_id());
+        if (!accountOptional.isPresent()) {
+            return ResponseObject.builder()
+                    .message("Owner account not found")
+                    .statusCode(404)
+                    .build();
+        }
+        Account ownerAccount = accountOptional.get();
+
+        // Create and save the manager entity
+        Manager manager = new Manager();
+        manager.setShop(savedShop);
+        manager.setAccount(ownerAccount);
+        managerRepo.save(manager);
 
         return ResponseObject.builder()
                 .message("Create Shop Success")
                 .statusCode(200)
                 .build();
+
     }
+
     @Override
     public ResponseObject updateShop(UpdateShopRequest updateShopRequest) {
         // Find the shop by ID

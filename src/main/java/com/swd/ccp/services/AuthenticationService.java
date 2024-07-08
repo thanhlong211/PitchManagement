@@ -13,6 +13,5 @@ public interface AuthenticationService {
 
     LoginResponse login(LoginRequest request);
 
-    CheckMailExistedResponse checkUserIsExisted(String email);
     RegisterResponse CreateOwner(RegisterRequest request);
 }

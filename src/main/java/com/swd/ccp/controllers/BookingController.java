@@ -19,22 +19,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/bookings")
+@RequestMapping("/bookings")
 public class BookingController {
 
     @Autowired
     private BookingService bookingService;
 
 
-    @PostMapping
-    @PreAuthorize("hasAuthority('customer:create')")
+    @PostMapping("/customer/create_booking")
     public ResponseEntity<ResponseObject> createBooking(@RequestBody BookingRequest bookingRequest) {
         ResponseObject responseObject = bookingService.createBooking(bookingRequest);
         return new ResponseEntity<>(responseObject, HttpStatus.valueOf(responseObject.getStatusCode()));
     }
 
-    @PutMapping("/{bookingId}/status")
-    @PreAuthorize("hasAuthority('customer:update')")
+    @PutMapping("/customer/{bookingId}/status")
     public ResponseEntity<ResponseObject> updateBookingStatus(
             @PathVariable Integer bookingId,
             @RequestParam String newStatus) {
@@ -42,18 +40,16 @@ public class BookingController {
         return new ResponseEntity<>(responseObject, HttpStatus.valueOf(responseObject.getStatusCode()));
     }
 
-    @GetMapping("/all")
-    @PreAuthorize("hasAuthority('owner:read')")
+    @GetMapping("/admin/all")
     public ResponseEntity<List<BookingResponse>> getAllBookings() {
-        List<Booking> bookings = bookingService.getAllActiveBookings();
+        List<Booking> bookings = bookingService.getAllBookings();
         List<BookingResponse> bookingResponses = bookings.stream()
                 .map(BookingMapper::bookingToDTO)
                 .collect(Collectors.toList());
         return new ResponseEntity<>(bookingResponses, HttpStatus.OK);
     }
 
-    @GetMapping("/customer/{customerId}")
-    @PreAuthorize("hasAuthority('customer:read')")
+    @GetMapping("/customer/all_booking/{customerId}")
     public ResponseEntity<List<BookingResponse>> getBookingsByCustomerId(@PathVariable Integer customerId) {
         List<Booking> bookings = bookingService.getBookingsByCustomerId(customerId);
         List<BookingResponse> bookingResponses = bookings.stream()
@@ -62,8 +58,7 @@ public class BookingController {
         return new ResponseEntity<>(bookingResponses, HttpStatus.OK);
     }
 
-    @GetMapping("/shop/{shopId}/bookings")
-    @PreAuthorize("hasAuthority('owner:read')")
+    @GetMapping("/owner/shop/all_booking/{shopId}")
     public ResponseEntity<List<BookingResponse>> getAllBookingsByShopId(@PathVariable Integer shopId) {
         List<Booking> bookings = bookingService.getBookingsByShopId(shopId);
         List<BookingResponse> bookingResponses = bookings.stream()

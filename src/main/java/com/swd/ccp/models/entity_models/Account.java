@@ -38,7 +38,7 @@ public class Account implements UserDetails {
 
     private String status;
 
-    @Enumerated(EnumType.STRING)
+
     private Role role;
 
     @Override

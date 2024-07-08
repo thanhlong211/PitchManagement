@@ -5,20 +5,16 @@ import com.swd.ccp.DTO.response_models.ResponseObject;
 import com.swd.ccp.models.entity_models.Booking;
 import com.swd.ccp.models.entity_models.Customer;
 import com.swd.ccp.models.entity_models.Pitch;
-import com.swd.ccp.repositories.AccountRepo;
 import com.swd.ccp.repositories.BookingRepo;
 import com.swd.ccp.repositories.CustomerRepo;
 import com.swd.ccp.repositories.PitchRepo;
 import com.swd.ccp.services.BookingService;
-import com.swd.ccp.services.CustomerService;
-import com.swd.ccp.services.JWTService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +22,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
     private final BookingRepo bookingRepository;
-    private final JWTService jwtService;
     private final CustomerRepo customerRepo;
     private final PitchRepo pitchRepo;
     @Override
@@ -116,8 +111,8 @@ public class BookingServiceImpl implements BookingService {
                 .build();
     }
     @Override
-    public List<Booking> getAllActiveBookings() {
-        return bookingRepository.findAllActiveBookings();
+    public List<Booking> getAllBookings() {
+        return bookingRepository.findAll();
     }
     @Override
     public List<Booking> getBookingsByCustomerId(Integer customerId) {

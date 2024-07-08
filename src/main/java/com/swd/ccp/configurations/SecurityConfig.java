@@ -17,7 +17,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private final JWTAuthenticationFilter jwtAuthenticationFilter;
 
     private final AuthenticationProvider authenticationProvider;
 
@@ -29,7 +28,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         authentication -> authentication.requestMatchers(
-                                "/auth/**",
+                                "/**",
                                 "/shops/**",
                                 "/v2/api-docs",
                                 "/v3/api-docs",
@@ -48,7 +47,7 @@ public class SecurityConfig {
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+               ;
 
         return http.build();
     }

@@ -1,14 +1,14 @@
 package com.swd.ccp.services_implementors;
 
-import com.swd.ccp.DTO.response_models.AccountDto;
-import com.swd.ccp.DTO.response_models.AccountResponse;
-import com.swd.ccp.DTO.response_models.LogoutResponse;
-import com.swd.ccp.DTO.response_models.ResponseObject;
+import com.swd.ccp.DTO.response_models.*;
 import com.swd.ccp.mapper.AccountMapper;
+import com.swd.ccp.mapper.ProfileMapper;
 import com.swd.ccp.models.entity_models.Account;
+import com.swd.ccp.models.entity_models.Customer;
 import com.swd.ccp.models.entity_models.Token;
 
 import com.swd.ccp.repositories.AccountRepo;
+import com.swd.ccp.repositories.CustomerRepo;
 import com.swd.ccp.repositories.TokenRepo;
 import com.swd.ccp.services.AccountService;
 import jakarta.persistence.EntityNotFoundException;
@@ -17,65 +17,40 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
 
     private final AccountRepo accountRepo;
+    private final CustomerRepo customerRepo;
 
     private final TokenRepo tokenRepo;
     private final AccountMapper accountMapper;
-    @Override
-    public String getAccessToken(Integer accountID) {
-        Account account = accountRepo.findById(accountID).orElse(null);
-        if(account != null){
-            Token accessToken = tokenRepo.findByAccount_IdAndStatusAndType(accountID, 1, "access").orElse(null);
-            return accessToken != null ? accessToken.getToken() : null;
-        }
-        return null;
-    }
+    private final ProfileMapper profileMapper;
 
-    @Override
-    public String getRefreshToken(Integer accountID) {
-        Account account = accountRepo.findById(accountID).orElse(null);
-        if(account != null){
-            Token refreshToken = tokenRepo.findByAccount_IdAndStatusAndType(accountID, 1, "refresh").orElse(null);
-            return refreshToken != null ? refreshToken.getToken() : null;
-        }
-        return null;
-    }
 
-    @Override
-    public Account getCurrentLoggedUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return accountRepo.findByEmail(authentication.getName()).orElse(null);
-    }
 
-    @Override
-    public LogoutResponse logout() {
-        Account account = getCurrentLoggedUser();
-        if(account != null){
-            Token accessToken = tokenRepo.findByAccount_IdAndStatusAndType(account.getId(), 1, "access").orElse(null);
-            Token refreshToken = tokenRepo.findByAccount_IdAndStatusAndType(account.getId(), 1, "refresh").orElse(null);
-            if(accessToken != null){
-                accessToken.setStatus(0);
-                tokenRepo.save(accessToken);
-            }
-            if(refreshToken != null){
-                refreshToken.setStatus(0);
-                tokenRepo.save(refreshToken);
-            }
-            return LogoutResponse.builder().status(true).message("Logout successfully").build();
-        }
-        return LogoutResponse.builder().status(false).message("Ooh! Something happen").build();
-    }
     @Override
     public List<AccountDto> getAllAccountDTOs() {
         List<Account> accounts = accountRepo.findAll();
         return accountMapper.toDTOList(accounts);
     }
+    @Override
+    public List<ProfileResponse> getProfile(Integer id) {
+        Optional<Customer> customerOptional = customerRepo.findById(id);
+        if (customerOptional.isPresent()) {
+            Customer customer = customerOptional.get();
+            ProfileResponse profileResponse = profileMapper.toDTO(customer);
+            return Collections.singletonList(profileResponse); // Đảm bảo trả về danh sách đơn
+        } else {
+            return Collections.emptyList(); // Hoặc xử lý trường hợp không tìm thấy customer
+        }
+    }
+
 
 
 

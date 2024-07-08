@@ -18,7 +18,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/pitches")
+@RequestMapping("/pitches")
 public class PitchController {
 
     private final PitchService pitchService;
@@ -28,26 +28,22 @@ public class PitchController {
         this.pitchService = pitchService;
     }
 
-    @PostMapping("/create")
-    @PreAuthorize("hasAuthority('owner:create')")
+    @PostMapping("/owner/create")
     public ResponseObject createPitch(@RequestBody CreatePitchRequest createPitchRequest) {
         return pitchService.createPitch(createPitchRequest);
     }
 
-    @PostMapping("/update")
-    @PreAuthorize("hasAuthority('owner:update')")
+    @PostMapping("/owner/update")
     public ResponseObject updatePitch(@RequestBody UpdatePitchRequest updatePitchRequest) {
         return pitchService.updatePitch(updatePitchRequest);
     }
 
-    @PostMapping("/changeStatus/{id}/{status}")
-    @PreAuthorize("hasAuthority('owner:update')")
-    public ResponseObject changePitchStatus(@PathVariable Integer id, @PathVariable String status) {
-        return pitchService.changePitchStatus(id, status);
+    @PostMapping("/owner/changeStatus/{pitch_id}/{status}")
+    public ResponseObject changePitchStatus(@PathVariable Integer pitch_id, @PathVariable String status) {
+        return pitchService.changePitchStatus(pitch_id, status);
     }
 
-    @GetMapping
-    @PreAuthorize("hasAuthority('owner:read')")
+    @GetMapping("/owner/all")
     public ResponseEntity<List<PitchResponse>> getAllPitches(
             @RequestParam Integer shopId,
             @RequestParam(defaultValue = "", name = "search") String search) {
@@ -55,8 +51,7 @@ public class PitchController {
         return ResponseEntity.ok(pitches);
     }
 
-    @GetMapping("/active")
-    @PreAuthorize("hasAuthority('customer:read')")
+    @GetMapping("/customer/get_active_pitches")
     public ResponseEntity<List<PitchResponse>> getActivePitches(
             @RequestParam Integer shopId,
             @RequestParam(defaultValue = "", name = "search") String search) {
@@ -64,8 +59,7 @@ public class PitchController {
         return ResponseEntity.ok(activePitches);
     }
 
-    @PostMapping("/available-pitches")
-    @PreAuthorize("hasAuthority('customer:read')")
+    @PostMapping("/customer/booking/available-pitches")
     public ResponseEntity<List<PitchResponse>> getAvailablePitches(
             @RequestParam Integer shopId,
             @RequestBody AvailablePitchRequest request) {

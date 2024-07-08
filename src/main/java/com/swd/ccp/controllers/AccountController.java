@@ -22,28 +22,34 @@ public class AccountController {
     private final AccountService accountService;
     private final AuthenticationService authenticationService;
 
-    @GetMapping()
-    @PreAuthorize("hasAuthority('admin:read')")
+    @GetMapping("/{id}/profile")
+    public ResponseEntity<List<ProfileResponse>> getCustomerProfile(@PathVariable Integer id) {
+        List<ProfileResponse> profileResponses = accountService.getProfile(id);
+        if (profileResponses.isEmpty()) {
+            return ResponseEntity.notFound().build(); // Or handle as needed
+        } else {
+            return ResponseEntity.ok(profileResponses);
+        }
+    }
+    @GetMapping("/admin/get_all")
     public ResponseEntity<List<AccountDto>> getAllAccounts() {
         List<AccountDto> accountDTOs = accountService.getAllAccountDTOs();
         return ResponseEntity.ok(accountDTOs);
     }
 
-    @PutMapping("/deactivate/{id}")
-    @PreAuthorize("hasAuthority('admin:update')")
+    @PutMapping("/admin/deactivate/{id}")
     public ResponseEntity<ResponseObject> deactivateAccount(@PathVariable Integer id) {
         ResponseObject response = accountService.deactivateAccount(id);
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/activate/{id}")
+    @PutMapping("/admin/activate/{id}")
     @PreAuthorize("hasAuthority('admin:update')")
     public ResponseEntity<ResponseObject> activateAccount(@PathVariable Integer id) {
         ResponseObject response = accountService.activateAccount(id);
         return ResponseEntity.ok(response);
     }
-    @PostMapping("/createOwner")
-    @PreAuthorize("hasAuthority('admin:create')")
+    @PostMapping("/admin/createOwner")
     public ResponseEntity<RegisterResponse> CreateOwner(@RequestBody RegisterRequest request){
         return ResponseEntity.ok().body(authenticationService.CreateOwner(request));
     }

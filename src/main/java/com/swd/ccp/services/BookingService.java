@@ -11,7 +11,7 @@ import java.util.List;
 public interface BookingService {
     ResponseObject createBooking(BookingRequest bookingRequest);
     ResponseObject updateBookingStatus(Integer bookingId, String newStatus);
-    List<Booking> getAllActiveBookings();
+    List<Booking> getAllBookings();
     List<Booking> getBookingsByCustomerId(Integer customerId);
     List<Booking> getBookingsByShopId(Integer shopId);
 }

@@ -1,6 +1,5 @@
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\response_models\LogoutResponse.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\models\entity_models\ShopCustomerCommunication.java
-D:\PRM392\ccp\src\main\java\com\swd\ccp\services_implementors\UserServiceImpl.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\models\entity_models\Customer.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\request_models\PaginationRequest.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\services\BookingService.java
@@ -11,8 +10,8 @@ D:\PRM392\ccp\src\main\java\com\swd\ccp\controllers\ShopCustomerCommunicationCon
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\response_models\BookingResponse.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\repositories\PitchRepo.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\services\AccountService.java
-D:\PRM392\ccp\src\main\java\com\swd\ccp\services_implementors\JWTServiceImpl.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\models\entity_models\Manager.java
+D:\PRM392\ccp\src\main\java\com\swd\ccp\mapper\ProfileMapper.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\response_models\PitchResponse.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\models\entity_models\Booking.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\configurations\SecurityConfig.java
@@ -22,6 +21,7 @@ D:\PRM392\ccp\src\main\java\com\swd\ccp\mapper\ShopMapper.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\request_models\ListRequest.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\request_models\UpdatePitchRequest.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\request_models\CheckMailExistedRequest.java
+D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\response_models\ProfileResponse.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\services_implementors\ShopCustomerCommunicationServiceImpl.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\request_models\CreateShopRequest.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\configurations\ApplicationConfig.java
@@ -29,13 +29,11 @@ D:\PRM392\ccp\src\main\java\com\swd\ccp\services\AuthenticationService.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\enums\Role.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\models\entity_models\Pitch.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\services\CustomerService.java
-D:\PRM392\ccp\src\main\java\com\swd\ccp\services\UserService.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\response_models\ResponseObject.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\models\entity_models\Account.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\Exception\NotFoundException.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\controllers\AccountController.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\services_implementors\CustomerServiceImpl.java
-D:\PRM392\ccp\src\main\java\com\swd\ccp\configurations\JWTAuthenticationFilter.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\CcpApplication.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\repositories\CustomerRepo.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\services\ShopCustomerCommunicationService.java
@@ -54,12 +52,11 @@ D:\PRM392\ccp\src\main\java\com\swd\ccp\mapper\PitchMapper.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\enums\Constant.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\repositories\ShopRepo.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\response_models\ShopCustomerCommunicationResponse.java
+D:\PRM392\ccp\src\main\java\com\swd\ccp\repositories\ManagerRepo.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\request_models\LoginRequest.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\response_models\RegisterResponse.java
-D:\PRM392\ccp\src\main\java\com\swd\ccp\services\JWTService.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\repositories\TokenRepo.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\configurations\OpenAPIConfig.java
-D:\PRM392\ccp\src\main\java\com\swd\ccp\controllers\UserController.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\response_models\ShopResponse.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\request_models\UpdateShopRequest.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\response_models\LoginResponse.java
