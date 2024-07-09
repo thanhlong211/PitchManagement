@@ -11,10 +11,10 @@ import lombok.NoArgsConstructor;
 @Builder
 public class RegisterResponse {
 
-    private boolean status;
-
     private String message;
+    private Integer shopId;
 
-
+    private boolean status;
+    private String account_name;
     private Integer account_id;
 }

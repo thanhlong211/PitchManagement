@@ -59,6 +59,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             return RegisterResponse.builder()
                     .message("Register successfully")
                     .status(true)
+                    .shopId(0)
                     .account_id(account.getId())
                     .build();
         }
@@ -106,6 +107,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                         .message("Login successfully")
                         .status(true)
                         .shopId(0)
+                        .account_name(account.getName())
                         .account_id(account.getId())
                         .build();
             }
@@ -114,6 +116,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                     .message("Login successfully")
                     .shopId(manager.getShop().getId())
                     .status(true)
+                    .account_name(account.getName())
                     .account_id(account.getId())
                     .build();
         }

@@ -15,6 +15,6 @@ public class LoginResponse {
     private Integer shopId;
 
     private boolean status;
-
+    private String account_name;
     private Integer account_id;
 }
