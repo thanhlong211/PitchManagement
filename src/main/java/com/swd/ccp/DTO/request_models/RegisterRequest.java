@@ -21,22 +21,7 @@ public class RegisterRequest {
 
     private String password;
 
-    @JsonSerialize
-    @JsonInclude
-    private String phone;
+    private Role role;
 
-    private String name;
 
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
-    @JsonSerialize
-    @JsonInclude
-    private Date dob;
-
-    @JsonSerialize
-    @JsonInclude
-    private String gender;
-
-    public void setDob(java.util.Date dob) {
-        this.dob = new Date(dob.getTime());
-    }
 }

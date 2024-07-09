@@ -24,17 +24,14 @@ com\swd\ccp\repositories\ShopRepo.class
 com\swd\ccp\DTO\request_models\RegisterRequest$RegisterRequestBuilder.class
 com\swd\ccp\configurations\ApplicationConfig.class
 com\swd\ccp\models\entity_models\Customer.class
-com\swd\ccp\repositories\ShopCustomerCommunicationRepo.class
 com\swd\ccp\DTO\request_models\UpdateShopRequest$UpdateShopRequestBuilder.class
 com\swd\ccp\DTO\request_models\BookingRequest.class
 com\swd\ccp\DTO\response_models\LoginResponse$LoginResponseBuilder.class
 com\swd\ccp\DTO\response_models\GetAllAccountAdminResponse$AccountResponse$AccountResponseBuilder.class
-com\swd\ccp\DTO\request_models\ShopCustomerCommunicationRequest$ShopCustomerCommunicationRequestBuilder.class
+com\swd\ccp\services_implementors\CustomUserDetailsServiceImpl.class
 com\swd\ccp\repositories\PitchRepo.class
 com\swd\ccp\mapper\BookingMapper.class
 com\swd\ccp\mapper\PitchMapper.class
-com\swd\ccp\DTO\response_models\ShopCustomerCommunicationResponse.class
-com\swd\ccp\DTO\response_models\ShopCustomerCommunicationResponse$ShopCustomerCommunicationResponseBuilder.class
 com\swd\ccp\models\entity_models\Manager$ManagerBuilder.class
 com\swd\ccp\DTO\request_models\CreateShopRequest$CreateShopRequestBuilder.class
 com\swd\ccp\DTO\response_models\AccountResponse$AccountResponseBuilder.class
@@ -48,7 +45,6 @@ com\swd\ccp\DTO\response_models\LogoutResponse$LogoutResponseBuilder.class
 com\swd\ccp\repositories\AccountRepo.class
 com\swd\ccp\DTO\request_models\PaginationRequest.class
 com\swd\ccp\controllers\AccountController.class
-com\swd\ccp\services_implementors\ShopCustomerCommunicationServiceImpl.class
 com\swd\ccp\DTO\response_models\GetAllAccountAdminResponse$GetAllAccountAdminResponseBuilder.class
 com\swd\ccp\services_implementors\ShopServiceImp.class
 com\swd\ccp\models\entity_models\Token.class
@@ -73,13 +69,11 @@ com\swd\ccp\enums\Role.class
 com\swd\ccp\DTO\request_models\CreatePitchRequest$CreatePitchRequestBuilder.class
 com\swd\ccp\models\entity_models\ShopCustomerCommunication.class
 com\swd\ccp\services_implementors\AuthenticationServiceImpl.class
-com\swd\ccp\DTO\request_models\ShopCustomerCommunicationRequest.class
 com\swd\ccp\models\entity_models\ShopCustomerCommunication$ShopCustomerCommunicationBuilder.class
 com\swd\ccp\configurations\OpenAPIConfig.class
 com\swd\ccp\DTO\request_models\CheckMailExistedRequest$CheckMailExistedRequestBuilder.class
 com\swd\ccp\DTO\request_models\CheckMailExistedRequest.class
 com\swd\ccp\DTO\request_models\UpdatePitchRequest.class
-com\swd\ccp\controllers\ShopCustomerCommunicationController.class
 com\swd\ccp\DTO\request_models\UpdateShopRequest.class
 com\swd\ccp\DTO\response_models\PitchResponse.class
 com\swd\ccp\DTO\request_models\AvailablePitchRequest.class
@@ -94,7 +88,6 @@ com\swd\ccp\models\entity_models\Token$TokenBuilder.class
 com\swd\ccp\DTO\response_models\AccountDto$AccountDtoBuilder.class
 com\swd\ccp\mapper\AccountMapper.class
 com\swd\ccp\models\entity_models\Booking$BookingBuilder.class
-com\swd\ccp\services\ShopCustomerCommunicationService.class
 com\swd\ccp\services\BookingService.class
 com\swd\ccp\models\entity_models\Pitch$PitchBuilder.class
 com\swd\ccp\controllers\ShopController.class
@@ -104,7 +97,6 @@ com\swd\ccp\Exception\NotFoundException.class
 com\swd\ccp\models\entity_models\Account.class
 com\swd\ccp\repositories\TokenRepo.class
 com\swd\ccp\DTO\response_models\BookingResponse$BookingResponseBuilder.class
-com\swd\ccp\mapper\ShopCustomerCommunicationMapper.class
 com\swd\ccp\services_implementors\BookingServiceImpl.class
 com\swd\ccp\DTO\request_models\CreatePitchRequest.class
 com\swd\ccp\controllers\PitchController.class

@@ -44,13 +44,8 @@ public class AccountController {
     }
 
     @PutMapping("/admin/activate/{id}")
-    @PreAuthorize("hasAuthority('admin:update')")
     public ResponseEntity<ResponseObject> activateAccount(@PathVariable Integer id) {
         ResponseObject response = accountService.activateAccount(id);
         return ResponseEntity.ok(response);
-    }
-    @PostMapping("/admin/createOwner")
-    public ResponseEntity<RegisterResponse> CreateOwner(@RequestBody RegisterRequest request){
-        return ResponseEntity.ok().body(authenticationService.CreateOwner(request));
     }
 }

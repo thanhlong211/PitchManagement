@@ -19,5 +19,5 @@ public class RegisterResponse {
 
     private String refreshToken;
 
-    private AccountResponse accountResponse;
+    private Integer account_id;
 }

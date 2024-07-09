@@ -15,9 +15,6 @@ public class ProfileMapper {
         dto.setId(customer.getId());
         dto.setEmail(customer.getAccount().getEmail());
         dto.setUsername(customer.getAccount().getUsername());
-        dto.setPhone(customer.getAccount().getPhone());
-        dto.setGender(customer.getGender());
-        dto.setDob(customer.getDob());
         return dto;
     }
 

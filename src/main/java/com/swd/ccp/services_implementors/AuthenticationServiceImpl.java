@@ -20,6 +20,7 @@ import com.swd.ccp.repositories.TokenRepo;
 import com.swd.ccp.services.AuthenticationService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -39,8 +40,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final TokenRepo tokenRepo;
 
-    private final PasswordEncoder passwordEncoder;
     private final ManagerRepo managerRepo;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public RegisterResponse register(RegisterRequest request) {
@@ -48,7 +49,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 
             // Kiểm tra xem trong cùng một role có username nào trùng không
-            if (accountRepo.findByEmailAndRole(request.getName(), Role.CUSTOMER).isPresent()) {
+            if (accountRepo.findByEmailAndRole(request.getEmail(), Role.CUSTOMER).isPresent()) {
                 return RegisterResponse.builder()
                         .message("Username already exists in this role")
                         .status(false)
@@ -59,38 +60,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             Account account = accountRepo.save(
                     Account.builder()
                             .email(request.getEmail())
-                            .name(request.getName())
+                            .name(request.getEmail())
                             .password(passwordEncoder.encode(request.getPassword()))
-                            .phone(isStringValid(request.getPhone()) ? request.getPhone() : null)
                             .status("active")
-                            .role(Role.CUSTOMER)
+                            .role(request.getRole())
                             .build()
             );
 
-            // Tạo mới customer (nếu cần)
-            Customer customer = customerRepo.save(
-                    Customer.builder()
-                            .account(account)
-                            .gender(isStringValid(request.getGender()) ? request.getGender() : null)
-                            .dob(request.getDob() != null ? request.getDob() : null)
-                            .build()
-            );
 
             return RegisterResponse.builder()
                     .message("Register successfully")
                     .status(true)
-                    .accountResponse(
-                            AccountResponse.builder()
-                                    .id(customer.getAccount().getId())
-                                    .email(customer.getAccount().getEmail())
-                                    .username(customer.getAccount().getName())
-                                    .phone(customer.getAccount().getPhone())
-                                    .dob(customer.getDob())
-                                    .gender(customer.getGender())
-                                    .status(customer.getAccount().getStatus())
-                                    .role(customer.getAccount().getRole().name())
-                                    .build()
-                    )
+                    .account_id(account.getId())
                     .build();
         }
         return RegisterResponse.builder()
@@ -100,61 +81,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
 
-    @Override
-    public RegisterResponse CreateOwner(RegisterRequest request) {
-        if (isStringValid(request.getEmail()) && isStringValid(request.getPassword())) {
 
-
-            if (accountRepo.findByEmailAndRole(request.getName(), Role.OWNER).isPresent()) {
-                return RegisterResponse.builder()
-                        .message("Username already exists in this role")
-                        .status(false)
-                        .build();
-            }
-
-            // Tạo mới account
-            Account account = accountRepo.save(
-                    Account.builder()
-                            .email(request.getEmail())
-                            .name(request.getName())
-                            .password(passwordEncoder.encode(request.getPassword()))
-                            .phone(isStringValid(request.getPhone()) ? request.getPhone() : null)
-                            .status("active")
-                            .role(Role.OWNER)
-                            .build()
-            );
-
-            // Tạo mới customer (nếu cần)
-            Customer customer = customerRepo.save(
-                    Customer.builder()
-                            .account(account)
-                            .gender(isStringValid(request.getGender()) ? request.getGender() : null)
-                            .dob(request.getDob() != null ? request.getDob() : null)
-                            .build()
-            );
-
-            return RegisterResponse.builder()
-                    .message("Register successfully")
-                    .status(true)
-                    .accountResponse(
-                            AccountResponse.builder()
-                                    .id(customer.getAccount().getId())
-                                    .email(customer.getAccount().getEmail())
-                                    .username(customer.getAccount().getName())
-                                    .phone(customer.getAccount().getPhone())
-                                    .dob(customer.getDob())
-                                    .gender(customer.getGender())
-                                    .status(customer.getAccount().getStatus())
-                                    .role(customer.getAccount().getRole().name())
-                                    .build()
-                    )
-                    .build();
-        }
-        return RegisterResponse.builder()
-                .message("Invalid email or password")
-                .status(false)
-                .build();
-    }
 
     @Override
     public LoginResponse login(LoginRequest request) {
@@ -191,18 +118,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                         .message("Login successfully")
                         .status(true)
                         .shopId(0)
-                        .accountResponse(
-                                AccountResponse.builder()
-                                        .id(account.getId())
-                                        .email(account.getEmail())
-                                        .username(account.getName())
-                                        .phone(account.getPhone())
-                                        .gender(checkIfAccountIsCustomer(account) != null ? checkIfAccountIsCustomer(account).getGender() : null)
-                                        .dob(checkIfAccountIsCustomer(account) != null ? checkIfAccountIsCustomer(account).getDob() : null)
-                                        .status(account.getStatus())
-                                        .role(account.getRole().name())
-                                        .build()
-                        )
+                        .account_id(account.getId())
                         .build();
             }
 
@@ -210,18 +126,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                     .message("Login successfully")
                     .shopId(manager.getShop().getId())
                     .status(true)
-                    .accountResponse(
-                            AccountResponse.builder()
-                                    .id(account.getId())
-                                    .email(account.getEmail())
-                                    .username(account.getName())
-                                    .phone(account.getPhone())
-                                    .gender(checkIfAccountIsCustomer(account) != null ? checkIfAccountIsCustomer(account).getGender() : null)
-                                    .dob(checkIfAccountIsCustomer(account) != null ? checkIfAccountIsCustomer(account).getDob() : null)
-                                    .status(account.getStatus())
-                                    .role(account.getRole().name())
-                                    .build()
-                    )
+                    .account_id(account.getId())
                     .build();
         }
 

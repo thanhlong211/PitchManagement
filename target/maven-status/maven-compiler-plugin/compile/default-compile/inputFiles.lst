@@ -6,7 +6,6 @@ D:\PRM392\ccp\src\main\java\com\swd\ccp\services\BookingService.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\mapper\BookingMapper.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\services_implementors\AuthenticationServiceImpl.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\repositories\AccountRepo.java
-D:\PRM392\ccp\src\main\java\com\swd\ccp\controllers\ShopCustomerCommunicationController.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\response_models\BookingResponse.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\repositories\PitchRepo.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\services\AccountService.java
@@ -22,7 +21,6 @@ D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\request_models\ListRequest.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\request_models\UpdatePitchRequest.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\request_models\CheckMailExistedRequest.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\response_models\ProfileResponse.java
-D:\PRM392\ccp\src\main\java\com\swd\ccp\services_implementors\ShopCustomerCommunicationServiceImpl.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\request_models\CreateShopRequest.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\configurations\ApplicationConfig.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\services\AuthenticationService.java
@@ -36,10 +34,8 @@ D:\PRM392\ccp\src\main\java\com\swd\ccp\controllers\AccountController.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\services_implementors\CustomerServiceImpl.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\CcpApplication.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\repositories\CustomerRepo.java
-D:\PRM392\ccp\src\main\java\com\swd\ccp\services\ShopCustomerCommunicationService.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\models\entity_models\Shop.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\response_models\CheckMailExistedResponse.java
-D:\PRM392\ccp\src\main\java\com\swd\ccp\controllers\AdminController.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\enums\Permission.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\services_implementors\PitchServiceImpl.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\controllers\AuthenticationController.java
@@ -51,8 +47,8 @@ D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\response_models\GetAllAccountAdminRe
 D:\PRM392\ccp\src\main\java\com\swd\ccp\mapper\PitchMapper.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\enums\Constant.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\repositories\ShopRepo.java
-D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\response_models\ShopCustomerCommunicationResponse.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\repositories\ManagerRepo.java
+D:\PRM392\ccp\src\main\java\com\swd\ccp\services_implementors\CustomUserDetailsServiceImpl.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\request_models\LoginRequest.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\response_models\RegisterResponse.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\repositories\TokenRepo.java
@@ -65,13 +61,10 @@ D:\PRM392\ccp\src\main\java\com\swd\ccp\models\entity_models\Token.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\repositories\BookingRepo.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\services_implementors\ShopServiceImp.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\services\PitchService.java
-D:\PRM392\ccp\src\main\java\com\swd\ccp\repositories\ShopCustomerCommunicationRepo.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\services\ShopService.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\request_models\CreatePitchRequest.java
-D:\PRM392\ccp\src\main\java\com\swd\ccp\mapper\ShopCustomerCommunicationMapper.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\response_models\RefreshResponse.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\controllers\ShopController.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\response_models\AccountDto.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\controllers\BookingController.java
-D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\request_models\ShopCustomerCommunicationRequest.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\services_implementors\AccountServiceImpl.java

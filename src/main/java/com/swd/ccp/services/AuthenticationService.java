@@ -13,5 +13,4 @@ public interface AuthenticationService {
 
     LoginResponse login(LoginRequest request);
 
-    RegisterResponse CreateOwner(RegisterRequest request);
 }

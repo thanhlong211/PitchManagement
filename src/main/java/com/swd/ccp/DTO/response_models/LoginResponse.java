@@ -16,5 +16,5 @@ public class LoginResponse {
 
     private boolean status;
 
-    private AccountResponse accountResponse;
+    private Integer account_id;
 }
