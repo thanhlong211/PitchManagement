@@ -2,30 +2,21 @@ package com.swd.ccp.services_implementors;
 
 import com.swd.ccp.DTO.request_models.LoginRequest;
 import com.swd.ccp.DTO.request_models.RegisterRequest;
-import com.swd.ccp.DTO.response_models.AccountResponse;
-import com.swd.ccp.DTO.response_models.CheckMailExistedResponse;
 import com.swd.ccp.DTO.response_models.LoginResponse;
 import com.swd.ccp.DTO.response_models.RegisterResponse;
 import com.swd.ccp.enums.Role;
 import com.swd.ccp.models.entity_models.Account;
-import com.swd.ccp.models.entity_models.Customer;
 import com.swd.ccp.models.entity_models.Manager;
-import com.swd.ccp.models.entity_models.Token;
 
 import com.swd.ccp.repositories.AccountRepo;
 
-import com.swd.ccp.repositories.CustomerRepo;
 import com.swd.ccp.repositories.ManagerRepo;
-import com.swd.ccp.repositories.TokenRepo;
 import com.swd.ccp.services.AuthenticationService;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,9 +27,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final AccountRepo accountRepo;
 
-    private final CustomerRepo customerRepo;
-
-    private final TokenRepo tokenRepo;
 
     private final ManagerRepo managerRepo;
     private final PasswordEncoder passwordEncoder;
@@ -136,20 +124,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .build();
     }
 
-    private Customer checkIfAccountIsCustomer(Account account){
-        return customerRepo.findByAccount_Email(account.getEmail()).orElse(null);
-    }
-
     private boolean isStringValid(String string) {
         return string != null && !string.isEmpty();
-    }
-
-    private Token getAccessToken(Integer accountId) {
-        return tokenRepo.findByAccount_IdAndStatusAndType(accountId, 1, "access").orElse(null);
-    }
-
-    private Token getRefreshToken(Integer accountId) {
-        return tokenRepo.findByAccount_IdAndStatusAndType(accountId, 1, "refresh").orElse(null);
     }
 
 

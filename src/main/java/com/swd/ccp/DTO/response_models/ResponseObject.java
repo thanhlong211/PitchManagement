@@ -14,5 +14,4 @@ public class ResponseObject {
     private String message;
     private String data;
     private int statusCode;
-    private String token;
 }

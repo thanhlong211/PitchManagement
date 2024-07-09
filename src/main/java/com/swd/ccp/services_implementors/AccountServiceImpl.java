@@ -4,17 +4,11 @@ import com.swd.ccp.DTO.response_models.*;
 import com.swd.ccp.mapper.AccountMapper;
 import com.swd.ccp.mapper.ProfileMapper;
 import com.swd.ccp.models.entity_models.Account;
-import com.swd.ccp.models.entity_models.Customer;
-import com.swd.ccp.models.entity_models.Token;
 
 import com.swd.ccp.repositories.AccountRepo;
-import com.swd.ccp.repositories.CustomerRepo;
-import com.swd.ccp.repositories.TokenRepo;
 import com.swd.ccp.services.AccountService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -26,9 +20,7 @@ import java.util.Optional;
 public class AccountServiceImpl implements AccountService {
 
     private final AccountRepo accountRepo;
-    private final CustomerRepo customerRepo;
 
-    private final TokenRepo tokenRepo;
     private final AccountMapper accountMapper;
     private final ProfileMapper profileMapper;
 
@@ -41,9 +33,9 @@ public class AccountServiceImpl implements AccountService {
     }
     @Override
     public List<ProfileResponse> getProfile(Integer id) {
-        Optional<Customer> customerOptional = customerRepo.findById(id);
+        Optional<Account> customerOptional = accountRepo.findById(id);
         if (customerOptional.isPresent()) {
-            Customer customer = customerOptional.get();
+            Account customer = customerOptional.get();
             ProfileResponse profileResponse = profileMapper.toDTO(customer);
             return Collections.singletonList(profileResponse); // Đảm bảo trả về danh sách đơn
         } else {

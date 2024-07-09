@@ -2,11 +2,11 @@ package com.swd.ccp.services_implementors;
 
 import com.swd.ccp.DTO.request_models.BookingRequest;
 import com.swd.ccp.DTO.response_models.ResponseObject;
+import com.swd.ccp.models.entity_models.Account;
 import com.swd.ccp.models.entity_models.Booking;
-import com.swd.ccp.models.entity_models.Customer;
 import com.swd.ccp.models.entity_models.Pitch;
+import com.swd.ccp.repositories.AccountRepo;
 import com.swd.ccp.repositories.BookingRepo;
-import com.swd.ccp.repositories.CustomerRepo;
 import com.swd.ccp.repositories.PitchRepo;
 import com.swd.ccp.services.BookingService;
 import lombok.RequiredArgsConstructor;
@@ -22,15 +22,15 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
     private final BookingRepo bookingRepository;
-    private final CustomerRepo customerRepo;
     private final PitchRepo pitchRepo;
+    private final AccountRepo accountRepo;
     @Override
     public ResponseObject createBooking(BookingRequest bookingRequest) {
 
-        Optional<Customer> customerOptional = customerRepo.findById(bookingRequest.getCustomerId());
-        Customer customer = customerOptional.orElseThrow(() -> new IllegalArgumentException("No customer information found."));
+        Optional<Account> customerOptional = accountRepo.findById(bookingRequest.getAccount_id());
+        Account customer = customerOptional.orElseThrow(() -> new IllegalArgumentException("No customer information found."));
 
-        Optional<Pitch> pitchOptional = pitchRepo.findById(bookingRequest.getPitchId());
+        Optional<Pitch> pitchOptional = pitchRepo.findById(bookingRequest.getPitch_id());
         Pitch pitch = pitchOptional.orElseThrow(() -> new IllegalArgumentException("No pitch information found."));
 
         if (bookingRequest.getBookingDate().isBefore(LocalDate.now())) {
@@ -73,7 +73,7 @@ public class BookingServiceImpl implements BookingService {
 
         // Tạo mới đối tượng Booking
         Booking newBooking = Booking.builder()
-                .customer(customer)
+                .account(customer)
                 .pitch(pitch)
                 .bookingStatus("onGoing")
                 .createDate(new Date(System.currentTimeMillis()))
@@ -116,7 +116,7 @@ public class BookingServiceImpl implements BookingService {
     }
     @Override
     public List<Booking> getBookingsByCustomerId(Integer customerId) {
-        return bookingRepository.findByCustomerIdAndActiveStatus(customerId);
+        return bookingRepository.findByAccountIdAndActiveStatus(customerId);
     }
     @Override
     public List<Booking> getBookingsByShopId(Integer shopId) {

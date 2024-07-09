@@ -16,7 +16,7 @@ public class BookingMapper {
         String formattedString = localDate.format(formatter);*/
 
         return BookingResponse.builder()
-                .customerName(c.getCustomer().getAccount().getName())
+                .customerName(c.getAccount().getName())
 //                .status(c.getStatus() ? ONGOING_STATUS : FINISHED_STATUS) them status
                 .id(c.getId())
                 .bookingDate(c.getBookingDate())

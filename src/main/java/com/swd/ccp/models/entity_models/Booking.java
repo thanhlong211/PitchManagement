@@ -22,8 +22,8 @@ public class Booking {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @JoinColumn(name = "account_id")
+    private Account account;
 
     @ManyToOne
     @JoinColumn(name = "pitch_id")

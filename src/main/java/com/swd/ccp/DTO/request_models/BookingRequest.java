@@ -1,6 +1,5 @@
 package com.swd.ccp.DTO.request_models;
 
-import com.swd.ccp.models.entity_models.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,8 +13,8 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Builder
 public class BookingRequest {
-    private Integer pitchId;
-    private Integer customerId;
+    private Integer pitch_id;
+    private Integer account_id;
     private LocalDate bookingDate;
     private LocalTime startBooking;
     private LocalTime endBooking;

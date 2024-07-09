@@ -26,7 +26,7 @@ public class ShopCustomerCommunication {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private Customer customer;
+    private Account account;
 
     private String message;
 

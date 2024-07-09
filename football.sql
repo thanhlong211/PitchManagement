@@ -24,14 +24,15 @@ DROP TABLE IF EXISTS `account`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `account` (
   `id` int NOT NULL AUTO_INCREMENT,
+  `role` tinyint DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `phone` varchar(255) DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
-  `role` tinyint DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`),
+  CONSTRAINT `account_chk_1` CHECK ((`role` between 0 and 2))
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +41,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (1,'demo','string','$2a$10$YD.mDgXYb4IYJ6UC.BPNkuCWh5qZmHQp3SPZzCqOwLDfX0BL4mrQW','string','active',0),(2,'owner','string','$2a$10$EjSpKTKCQnQw3YpcPOFmE.gQvfuGtS8L2RJF97LkxDc8FBjITevu6','string','active',1),(3,'demo2','demo2','$2a$10$7ccQpBwmJ4vwpw3GHHGDRONJuXZ8MAYWviM6GCNojqyGuJuCQbJJ6',NULL,'active',0),(4,'tin@gmail.com','tin@gmail.com','$2a$10$irRpdHrbmm0TozRYcTHwlebwNCT1rFqBqsCSS92eRpONCRc.4lg/a',NULL,'active',0);
+INSERT INTO `account` VALUES (1,0,'demo','demo','$2a$10$V/TQL0J9BYI81JnX.Es6auGJMmfAt4p4YZxHqWEqIKfZXhdxn9NSa',NULL,'active'),(2,1,'owner','owner','$2a$10$PU1uXL46OnOH829ZJn6duO9U3VyiMJF1RAnZXhVFK7GepUDlBRWRO',NULL,'active'),(3,2,'admin','admin','$2a$10$7yCSMUU4AKUsuldmmeUyuOp8IgIEfk/9Xirg.hOYVmEEN9jSn3k0S',NULL,'active');
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -52,9 +53,9 @@ DROP TABLE IF EXISTS `booking`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `booking` (
+  `account_id` int DEFAULT NULL,
   `booking_date` date DEFAULT NULL,
   `create_date` date DEFAULT NULL,
-  `customer_id` int DEFAULT NULL,
   `end_booking` time(6) DEFAULT NULL,
   `id` int NOT NULL AUTO_INCREMENT,
   `pitch_id` int DEFAULT NULL,
@@ -62,11 +63,11 @@ CREATE TABLE `booking` (
   `start_booking` time(6) DEFAULT NULL,
   `booking_status` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FKlnnelfsha11xmo2ndjq66fvro` (`customer_id`),
+  KEY `FK7hunottedmjhtdcvhv4sx6x4a` (`account_id`),
   KEY `FK6tamm9q1mpqaoub56q1y0umyu` (`pitch_id`),
   CONSTRAINT `FK6tamm9q1mpqaoub56q1y0umyu` FOREIGN KEY (`pitch_id`) REFERENCES `pitch` (`id`),
-  CONSTRAINT `FKlnnelfsha11xmo2ndjq66fvro` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `FK7hunottedmjhtdcvhv4sx6x4a` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,35 +76,8 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
+INSERT INTO `booking` VALUES (1,'2024-07-01','2024-06-30','20:00:00.000000',1,1,150,'18:00:00.000000','onGoing'),(1,'2024-07-02','2024-06-30','22:00:00.000000',2,2,200,'20:00:00.000000','onGoing'),(1,'2024-07-03','2024-06-30','21:00:00.000000',3,3,180,'19:00:00.000000','onGoing'),(1,'2024-07-04','2024-06-30','20:00:00.000000',4,4,250,'18:00:00.000000','onGoing'),(1,'2024-07-05','2024-06-30','22:00:00.000000',5,5,120,'20:00:00.000000','onGoing');
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `customer`
---
-
-DROP TABLE IF EXISTS `customer`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `customer` (
-  `account_id` int DEFAULT NULL,
-  `dob` date DEFAULT NULL,
-  `id` int NOT NULL AUTO_INCREMENT,
-  `gender` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_jwt2qo9oj3wd7ribjkymryp8s` (`account_id`),
-  CONSTRAINT `FKn9x2k8svpxj3r328iy1rpur83` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `customer`
---
-
-LOCK TABLES `customer` WRITE;
-/*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (1,'2024-07-08',1,'string'),(2,'2024-07-08',2,'string');
-/*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -122,7 +96,7 @@ CREATE TABLE `manager` (
   KEY `FKgv8o9ylwxq2nmbroq6yf54woa` (`shop_id`),
   CONSTRAINT `FKgv8o9ylwxq2nmbroq6yf54woa` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`id`),
   CONSTRAINT `FKs8vxfog0lwxdn09g7d71fkuxp` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,7 +105,6 @@ CREATE TABLE `manager` (
 
 LOCK TABLES `manager` WRITE;
 /*!40000 ALTER TABLE `manager` DISABLE KEYS */;
-INSERT INTO `manager` VALUES (2,1,3);
 /*!40000 ALTER TABLE `manager` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -152,7 +125,7 @@ CREATE TABLE `pitch` (
   PRIMARY KEY (`id`),
   KEY `FKr8flyteq7rjnnkwgfqlgg6ic1` (`shop_id`),
   CONSTRAINT `FKr8flyteq7rjnnkwgfqlgg6ic1` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -161,7 +134,7 @@ CREATE TABLE `pitch` (
 
 LOCK TABLES `pitch` WRITE;
 /*!40000 ALTER TABLE `pitch` DISABLE KEYS */;
-INSERT INTO `pitch` VALUES (12,1,12,NULL,'demo','ACTIVE');
+INSERT INTO `pitch` VALUES (10,1,150,1,'Pitch A1','active'),(15,2,200,1,'Pitch A2','active'),(12,3,180,2,'Pitch B1','active'),(20,4,250,3,'Pitch C1','active'),(8,5,120,3,'Pitch C2','active');
 /*!40000 ALTER TABLE `pitch` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -192,7 +165,7 @@ CREATE TABLE `shop` (
 
 LOCK TABLES `shop` WRITE;
 /*!40000 ALTER TABLE `shop` DISABLE KEYS */;
-INSERT INTO `shop` VALUES (1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(2,NULL,'string','string','string','string','string','string','ACTIVE'),(3,NULL,'demo','string','string','demo','string','string','ACTIVE');
+INSERT INTO `shop` VALUES (1,4.1,'123 Fake Street','https://www.example.com/avatar1.jpg','20:00','Shop A','08:00','555-1234','active'),(2,3.9,'456 Another Rd','https://www.example.com/avatar2.jpg','22:00','Shop B','09:00','555-5678','active'),(3,4.7,'789 Market St','https://www.example.com/avatar3.jpg','21:00','Shop C','10:00','555-9876','active');
 /*!40000 ALTER TABLE `shop` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -210,11 +183,11 @@ CREATE TABLE `shop_customer_communication` (
   `timestamp` datetime(6) DEFAULT NULL,
   `message` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FKpq4ejc9rsahxh8g1l8u6jiukh` (`customer_id`),
+  KEY `FKoyh253626mvw9f8g9v4dnnyv9` (`customer_id`),
   KEY `FKhth3afauqjjqrw5p4hupy6vdl` (`shop_id`),
   CONSTRAINT `FKhth3afauqjjqrw5p4hupy6vdl` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`id`),
-  CONSTRAINT `FKpq4ejc9rsahxh8g1l8u6jiukh` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `FKoyh253626mvw9f8g9v4dnnyv9` FOREIGN KEY (`customer_id`) REFERENCES `account` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -223,35 +196,8 @@ CREATE TABLE `shop_customer_communication` (
 
 LOCK TABLES `shop_customer_communication` WRITE;
 /*!40000 ALTER TABLE `shop_customer_communication` DISABLE KEYS */;
+INSERT INTO `shop_customer_communication` VALUES (1,1,1,'2024-07-01 10:00:00.000000','Hello, I have a question about my booking.'),(1,2,2,'2024-07-02 11:00:00.000000','Can I change my booking time?'),(1,3,3,'2024-07-03 12:00:00.000000','I would like to cancel my booking.'),(1,4,1,'2024-07-04 13:00:00.000000','Thank you for your help!'),(1,5,2,'2024-07-05 14:00:00.000000','Is the pitch available tomorrow?');
 /*!40000 ALTER TABLE `shop_customer_communication` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `token`
---
-
-DROP TABLE IF EXISTS `token`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `token` (
-  `account_id` int DEFAULT NULL,
-  `id` int NOT NULL AUTO_INCREMENT,
-  `status` int NOT NULL,
-  `token` varchar(255) DEFAULT NULL,
-  `type` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKftkstvcfb74ogw02bo5261kno` (`account_id`),
-  CONSTRAINT `FKftkstvcfb74ogw02bo5261kno` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `token`
---
-
-LOCK TABLES `token` WRITE;
-/*!40000 ALTER TABLE `token` DISABLE KEYS */;
-/*!40000 ALTER TABLE `token` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -263,4 +209,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-09 14:55:35
+-- Dump completed on 2024-07-09 16:37:46
