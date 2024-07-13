@@ -1,6 +1,7 @@
 package com.swd.ccp.controllers;
 
 import com.swd.ccp.DTO.request_models.CreateShopRequest;
+import com.swd.ccp.DTO.request_models.SearchRequest;
 import com.swd.ccp.DTO.request_models.UpdateShopRequest;
 import com.swd.ccp.DTO.response_models.ResponseObject;
 import com.swd.ccp.DTO.response_models.ShopResponse;
@@ -45,12 +46,10 @@ public class ShopController {
     }
 
     @PostMapping("/owner/all")
-    public ResponseEntity<List<ShopResponse>> getAllShops(
-            @RequestParam(defaultValue = "", name = "search") String search) {
-        List<ShopResponse> shops = shopService.getAllShops(search);
+    public ResponseEntity<List<ShopResponse>> getAllShops(@RequestBody SearchRequest searchRequest) {
+        List<ShopResponse> shops = shopService.getAllShops(searchRequest.getSearch());
         return ResponseEntity.ok(shops);
     }
-
     @GetMapping("/customer/shops/active")
     public ResponseEntity<List<ShopResponse>> getAllActiveShops(
             @RequestParam(defaultValue = "", name = "search") String search) {

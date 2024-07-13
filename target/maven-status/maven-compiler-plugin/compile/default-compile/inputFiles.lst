@@ -20,6 +20,7 @@ D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\request_models\ListRequest.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\request_models\UpdatePitchRequest.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\request_models\CheckMailExistedRequest.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\response_models\ProfileResponse.java
+D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\request_models\SearchRequest.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\request_models\CreateShopRequest.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\configurations\ApplicationConfig.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\services\AuthenticationService.java
