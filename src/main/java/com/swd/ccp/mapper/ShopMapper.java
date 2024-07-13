@@ -26,6 +26,7 @@ public class ShopMapper {
                 .openTime(c.getOpenTime())
                 .closeTime(c.getCloseTime())
                 .status(c.getStatus())
+                .phone(c.getPhone())
                 .build();
     }
 }

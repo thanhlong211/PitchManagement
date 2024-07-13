@@ -17,4 +17,5 @@ public class ShopResponse {
     private String closeTime;
     private String name;
     private String status;
+    private String phone;
 }
