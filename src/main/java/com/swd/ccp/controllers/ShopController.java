@@ -20,25 +20,25 @@ import java.util.List;
 public class ShopController {
     private final ShopService shopService;
 
-    @PostMapping("/admin/create_shop")
+    @PostMapping("/owner/create_shop")
     public ResponseEntity<ResponseObject> createShop(@RequestBody CreateShopRequest createShopRequest) {
         ResponseObject response = shopService.CreateShop(createShopRequest);
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatusCode()));
     }
 
-    @PutMapping("/admin/update_shop")
+    @PutMapping("/owner/update_shop")
     public ResponseEntity<ResponseObject> updateShop(@RequestBody UpdateShopRequest updateShopRequest) {
         ResponseObject response = shopService.updateShop(updateShopRequest);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
-    @PutMapping("/admin/activate/{id}")
+    @PutMapping("/owner/activate/{id}")
     public ResponseEntity<ResponseObject> activateShop(@PathVariable Integer id) {
         ResponseObject response = shopService.changeShopStatus(id, "ACTIVE");
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
-    @PutMapping("/admin/deactivate/{id}")
+    @PutMapping("/owner/deactivate/{id}")
     public ResponseEntity<ResponseObject> deactivateShop(@PathVariable Integer id) {
         ResponseObject response = shopService.changeShopStatus(id, "INACTIVE");
         return ResponseEntity.status(response.getStatusCode()).body(response);
