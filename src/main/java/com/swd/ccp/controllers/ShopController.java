@@ -44,7 +44,7 @@ public class ShopController {
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
-    @GetMapping("/owner/all")
+    @PostMapping("/owner/all")
     public ResponseEntity<List<ShopResponse>> getAllShops(
             @RequestParam(defaultValue = "", name = "search") String search) {
         List<ShopResponse> shops = shopService.getAllShops(search);
