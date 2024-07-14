@@ -28,6 +28,8 @@ public class Shop {
     @Column(name = "close_time")
     private String closeTime;
 
+    private String longitude;
+    private String latitude;
     private Double rating;
 
     private String phone;

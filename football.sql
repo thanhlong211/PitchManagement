@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `football` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `football`;
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: football
@@ -32,7 +34,7 @@ CREATE TABLE `account` (
   `status` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `account_chk_1` CHECK ((`role` between 0 and 2))
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +43,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (1,0,'demo','demo','$2a$10$V/TQL0J9BYI81JnX.Es6auGJMmfAt4p4YZxHqWEqIKfZXhdxn9NSa',NULL,'active'),(2,1,'owner','owner','$2a$10$PU1uXL46OnOH829ZJn6duO9U3VyiMJF1RAnZXhVFK7GepUDlBRWRO',NULL,'active'),(3,2,'admin','admin','$2a$10$7yCSMUU4AKUsuldmmeUyuOp8IgIEfk/9Xirg.hOYVmEEN9jSn3k0S',NULL,'active');
+INSERT INTO `account` VALUES (1,0,'demo','demo','$2a$10$V/TQL0J9BYI81JnX.Es6auGJMmfAt4p4YZxHqWEqIKfZXhdxn9NSa',NULL,'active'),(2,1,'owner','owner','$2a$10$PU1uXL46OnOH829ZJn6duO9U3VyiMJF1RAnZXhVFK7GepUDlBRWRO',NULL,'active'),(3,2,'admin','admin','$2a$10$7yCSMUU4AKUsuldmmeUyuOp8IgIEfk/9Xirg.hOYVmEEN9jSn3k0S',NULL,'active'),(4,0,'dat@gmail.com','dat@gmail.com','$2a$10$ZPaImaWfxI3l5I2uyN1CxeRvrr45fXADVMgUATLpyr6IfOU8GpQ1e',NULL,'active'),(5,0,'demo2','demo2','$2a$10$GKuUwWvyJ8qMVVFOaatWq.RHsF6LXgmbRn5F4FNHiW.mTC2JPXJ/C',NULL,'active');
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -67,7 +69,7 @@ CREATE TABLE `booking` (
   KEY `FK6tamm9q1mpqaoub56q1y0umyu` (`pitch_id`),
   CONSTRAINT `FK6tamm9q1mpqaoub56q1y0umyu` FOREIGN KEY (`pitch_id`) REFERENCES `pitch` (`id`),
   CONSTRAINT `FK7hunottedmjhtdcvhv4sx6x4a` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,7 +78,7 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES (1,'2024-07-01','2024-06-30','20:00:00.000000',1,1,150,'18:00:00.000000','onGoing'),(1,'2024-07-02','2024-06-30','22:00:00.000000',2,2,200,'20:00:00.000000','onGoing'),(1,'2024-07-03','2024-06-30','21:00:00.000000',3,3,180,'19:00:00.000000','onGoing'),(1,'2024-07-04','2024-06-30','20:00:00.000000',4,4,250,'18:00:00.000000','onGoing'),(1,'2024-07-05','2024-06-30','22:00:00.000000',5,5,120,'20:00:00.000000','onGoing');
+INSERT INTO `booking` VALUES (1,'2024-07-01','2024-06-30','20:00:00.000000',1,1,150,'18:00:00.000000','onGoing'),(1,'2024-07-02','2024-06-30','22:00:00.000000',2,2,200,'20:00:00.000000','onGoing'),(1,'2024-07-03','2024-06-30','21:00:00.000000',3,3,180,'19:00:00.000000','onGoing'),(1,'2024-07-04','2024-06-30','20:00:00.000000',4,4,250,'18:00:00.000000','onGoing'),(1,'2024-07-05','2024-06-30','22:00:00.000000',5,5,120,'20:00:00.000000','onGoing'),(4,'2024-07-10','2024-07-09','12:00:00.000000',6,1,150,'10:30:00.000000','onGoing'),(4,'2024-07-10','2024-07-09','05:00:00.000000',7,1,150,'04:00:00.000000','onGoing'),(4,'2024-07-11','2024-07-09','05:30:00.000000',8,1,150,'04:00:00.000000','onGoing'),(4,'2024-07-12','2024-07-09','07:00:00.000000',9,1,150,'05:30:00.000000','onGoing');
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +98,7 @@ CREATE TABLE `manager` (
   KEY `FKgv8o9ylwxq2nmbroq6yf54woa` (`shop_id`),
   CONSTRAINT `FKgv8o9ylwxq2nmbroq6yf54woa` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`id`),
   CONSTRAINT `FKs8vxfog0lwxdn09g7d71fkuxp` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -125,7 +127,7 @@ CREATE TABLE `pitch` (
   PRIMARY KEY (`id`),
   KEY `FKr8flyteq7rjnnkwgfqlgg6ic1` (`shop_id`),
   CONSTRAINT `FKr8flyteq7rjnnkwgfqlgg6ic1` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -134,7 +136,7 @@ CREATE TABLE `pitch` (
 
 LOCK TABLES `pitch` WRITE;
 /*!40000 ALTER TABLE `pitch` DISABLE KEYS */;
-INSERT INTO `pitch` VALUES (10,1,150,1,'Pitch A1','active'),(15,2,200,1,'Pitch A2','active'),(12,3,180,2,'Pitch B1','active'),(20,4,250,3,'Pitch C1','active'),(8,5,120,3,'Pitch C2','active');
+INSERT INTO `pitch` VALUES (10,1,150,1,'Pitch A1','active'),(15,2,200,1,'Pitch A2','active'),(12,3,180,2,'Pitch B1','active'),(20,4,250,3,'Pitch C1','active'),(8,5,120,3,'Pitch C2','active'),(20,6,150,1,'Pitch A','ACTIVE'),(25,7,175,2,'Pitch B','ACTIVE'),(30,8,200,3,'Pitch C','ACTIVE'),(22,9,160,4,'Pitch D','ACTIVE'),(27,10,180,5,'Pitch E','ACTIVE'),(35,11,210,6,'Pitch F','ACTIVE'),(18,12,140,7,'Pitch G','ACTIVE'),(40,13,220,8,'Pitch H','ACTIVE'),(28,14,185,9,'Pitch I','ACTIVE'),(33,15,205,10,'Pitch J','ACTIVE'),(21,16,155,11,'Pitch K','ACTIVE'),(29,17,190,12,'Pitch L','ACTIVE'),(24,18,170,13,'Pitch M','ACTIVE'),(32,19,200,14,'Pitch N','ACTIVE'),(20,20,150,1,'Pitch A','ACTIVE'),(25,21,175,2,'Pitch B','ACTIVE'),(30,22,200,3,'Pitch C','ACTIVE'),(22,23,160,4,'Pitch D','ACTIVE'),(27,24,180,5,'Pitch E','ACTIVE'),(35,25,210,6,'Pitch F','ACTIVE'),(18,26,140,7,'Pitch G','ACTIVE'),(40,27,220,8,'Pitch H','ACTIVE'),(28,28,185,9,'Pitch I','ACTIVE'),(33,29,205,10,'Pitch J','ACTIVE'),(21,30,155,11,'Pitch K','ACTIVE'),(29,31,190,12,'Pitch L','ACTIVE'),(24,32,170,13,'Pitch M','ACTIVE'),(32,33,200,14,'Pitch N','ACTIVE');
 /*!40000 ALTER TABLE `pitch` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -155,8 +157,10 @@ CREATE TABLE `shop` (
   `open_time` varchar(255) DEFAULT NULL,
   `phone` varchar(255) DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
+  `latitude` varchar(255) DEFAULT NULL,
+  `longitude` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,7 +169,7 @@ CREATE TABLE `shop` (
 
 LOCK TABLES `shop` WRITE;
 /*!40000 ALTER TABLE `shop` DISABLE KEYS */;
-INSERT INTO `shop` VALUES (1,4.1,'123 Fake Street','https://www.example.com/avatar1.jpg','20:00','Shop A','08:00','555-1234','active'),(2,3.9,'456 Another Rd','https://www.example.com/avatar2.jpg','22:00','Shop B','09:00','555-5678','active'),(3,4.7,'789 Market St','https://www.example.com/avatar3.jpg','21:00','Shop C','10:00','555-9876','active');
+INSERT INTO `shop` VALUES (1,4.1,'123 Fake Street','https://www.example.com/avatar1.jpg','20:00','Shop Thien Long','08:00','555-1234','ACTIVE',NULL,NULL),(2,3.9,'456 Another Rd','https://www.example.com/avatar2.jpg','22:00','Shop Hoa Long','09:00','555-5678','ACTIVE',NULL,NULL),(3,4.7,'789 Market St','https://www.example.com/avatar3.jpg','21:00','Shop An Binh','10:00','555-9876','ACTIVE',NULL,NULL),(4,4.1,'123 Fake Street','https://www.example.com/avatar1.jpg','20:00','Shop Thien Long','08:00','555-1234','ACTIVE','',''),(5,3.9,'456 Another Rd','https://www.example.com/avatar2.jpg','22:00','Shop Hoa Long','09:00','555-5678','ACTIVE','',''),(6,4.7,'789 Market St','https://www.example.com/avatar3.jpg','21:00','Shop An Binh','10:00','555-9876','ACTIVE','',''),(7,4.3,'101 Main St','https://www.example.com/avatar4.jpg','18:00','Shop Kim Long','07:00','555-4321','ACTIVE','',''),(8,4,'202 Elm St','https://www.example.com/avatar5.jpg','19:00','Shop Lien Hoa','08:30','555-8765','ACTIVE','',''),(9,4.5,'303 Pine St','https://www.example.com/avatar6.jpg','20:30','Shop Van An','09:30','555-6543','ACTIVE','',''),(10,3.8,'404 Oak St','https://www.example.com/avatar7.jpg','21:30','Shop Thanh Son','10:00','555-3456','ACTIVE','',''),(11,4.6,'505 Maple St','https://www.example.com/avatar8.jpg','22:30','Shop Quang Minh','07:30','555-5674','ACTIVE','',''),(12,4.2,'606 Birch St','https://www.example.com/avatar9.jpg','23:00','Shop Hong Ha','08:00','555-1239','ACTIVE','',''),(13,4.4,'707 Cedar St','https://www.example.com/avatar10.jpg','17:30','Shop Phu Quoc','09:00','555-9874','ACTIVE','',''),(14,3.7,'808 Spruce St','https://www.example.com/avatar11.jpg','18:30','Shop An Khang','09:30','555-7654','ACTIVE','',''),(15,4.1,'909 Ash St','https://www.example.com/avatar12.jpg','19:00','Shop Bao Chau','10:00','555-6789','ACTIVE','',''),(16,4.3,'1010 Fir St','https://www.example.com/avatar13.jpg','20:00','Shop Ha Phuong','10:30','555-4326','ACTIVE','',''),(17,3.9,'1111 Cypress St','https://www.example.com/avatar14.jpg','21:00','Shop Gia Bao','11:00','555-7890','ACTIVE','','');
 /*!40000 ALTER TABLE `shop` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,4 +213,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-09 16:37:46
+-- Dump completed on 2024-07-14 10:26:29
