@@ -36,7 +36,7 @@ public class BookingController {
         ResponseObject responseObject = bookingService.updateBookingStatus(bookingId, newStatus);
         return new ResponseEntity<>(responseObject, HttpStatus.valueOf(responseObject.getStatusCode()));
     }
-    @PutMapping("/customer/updated_booking")
+    @PostMapping("/customer/updated_booking")
     public ResponseEntity<ResponseObject> updateBooking(
             @RequestBody UpdateBookingRequest updateBookingRequest) {
         ResponseObject responseObject = bookingService.updateBooking(updateBookingRequest);
