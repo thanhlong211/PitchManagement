@@ -4,6 +4,7 @@ D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\request_models\PaginationRequest.jav
 D:\PRM392\ccp\src\main\java\com\swd\ccp\services\BookingService.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\mapper\BookingMapper.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\services_implementors\AuthenticationServiceImpl.java
+D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\request_models\UpdateBookingRequest.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\repositories\AccountRepo.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\DTO\response_models\BookingResponse.java
 D:\PRM392\ccp\src\main\java\com\swd\ccp\repositories\PitchRepo.java

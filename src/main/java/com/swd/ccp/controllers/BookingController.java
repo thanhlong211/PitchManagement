@@ -1,6 +1,7 @@
 package com.swd.ccp.controllers;
 
 import com.swd.ccp.DTO.request_models.BookingRequest;
+import com.swd.ccp.DTO.request_models.UpdateBookingRequest;
 import com.swd.ccp.DTO.response_models.BookingResponse;
 import com.swd.ccp.DTO.response_models.ResponseObject;
 import com.swd.ccp.mapper.BookingMapper;
@@ -35,6 +36,13 @@ public class BookingController {
         ResponseObject responseObject = bookingService.updateBookingStatus(bookingId, newStatus);
         return new ResponseEntity<>(responseObject, HttpStatus.valueOf(responseObject.getStatusCode()));
     }
+    @PutMapping("/customer/updated_booking")
+    public ResponseEntity<ResponseObject> updateBooking(
+            @RequestBody UpdateBookingRequest updateBookingRequest) {
+        ResponseObject responseObject = bookingService.updateBooking(updateBookingRequest);
+        return new ResponseEntity<>(responseObject, HttpStatus.valueOf(responseObject.getStatusCode()));
+    }
+
 
     @GetMapping("/admin/all")
     public ResponseEntity<List<BookingResponse>> getAllBookings() {

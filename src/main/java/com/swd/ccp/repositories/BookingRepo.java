@@ -14,8 +14,9 @@ public interface BookingRepo extends JpaRepository<Booking, Integer> {
 
     @Query("SELECT b FROM Booking b WHERE b.bookingStatus <> 'deactive' AND b.account.status <> 'deactive' ")
     List<Booking> findAllActiveBookings();
-    @Query("SELECT b FROM Booking b WHERE b.account.id = :customerId AND b.bookingStatus <> 'deactive' AND b.account.status <> 'deactive' ")
+    @Query("SELECT b FROM Booking b WHERE b.account.id = :customerId AND LOWER(b.bookingStatus) = 'onGoing' AND LOWER(b.account.status) = 'active'")
     List<Booking> findByAccountIdAndActiveStatus(Integer customerId);
 
     List<Booking> findByPitchShopId(Integer shopId);
+    int countByAccountIdAndBookingStatus(int accountId, String bookingStatus);
 }

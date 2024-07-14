@@ -1,6 +1,7 @@
 package com.swd.ccp.services_implementors;
 
 import com.swd.ccp.DTO.request_models.BookingRequest;
+import com.swd.ccp.DTO.request_models.UpdateBookingRequest;
 import com.swd.ccp.DTO.response_models.ResponseObject;
 import com.swd.ccp.models.entity_models.Account;
 import com.swd.ccp.models.entity_models.Booking;
@@ -107,6 +108,52 @@ public class BookingServiceImpl implements BookingService {
 
         return ResponseObject.builder()
                 .message("Booking status updated successfully.")
+                .statusCode(200)
+                .build();
+    }
+    @Override
+    public ResponseObject updateBooking(UpdateBookingRequest bookingRequest) {
+        Optional<Booking> bookingOptional = bookingRepository.findById(bookingRequest.getCustomerId());
+        if (!bookingOptional.isPresent()) {
+            return ResponseObject.builder()
+                    .message("Booking not found")
+                    .statusCode(404)
+                    .build();
+        }
+        if (bookingRequest.getBookingDate().isBefore(LocalDate.now())) {
+            return ResponseObject.builder()
+                    .message("Fields cannot be set to dates in the past.")
+                    .statusCode(400)
+                    .build();
+        }
+        if (bookingRequest.getStartBooking().compareTo(bookingRequest.getEndBooking()) >= 0) {
+            return ResponseObject.builder()
+                    .message("The start time must be less than the end time.")
+                    .statusCode(400)
+                    .build();
+        }
+
+        // Kiểm tra các booking xung đột
+        List<Booking> conflictingBookings = bookingRepository.findByBookingDateAndStartBookingLessThanEqualAndEndBookingGreaterThanEqual(
+                bookingRequest.getBookingDate(),
+                bookingRequest.getEndBooking(),
+                bookingRequest.getStartBooking()
+        );
+        if (!conflictingBookings.isEmpty()) {
+            return ResponseObject.builder()
+                    .message("It is not possible to reserve the field at this time because it is already booked.")
+                    .statusCode(400)
+                    .build();
+        }
+
+        Booking booking = bookingOptional.get();
+        booking.setBookingDate(bookingRequest.getBookingDate());
+        booking.setStartBooking(bookingRequest.getStartBooking());
+        booking.setEndBooking(bookingRequest.getEndBooking());
+        bookingRepository.save(booking);
+
+        return ResponseObject.builder()
+                .message("Booking updated successfully.")
                 .statusCode(200)
                 .build();
     }

@@ -6,6 +6,7 @@ com\swd\ccp\services\AccountService.class
 com\swd\ccp\DTO\response_models\AccountDto.class
 com\swd\ccp\models\entity_models\Pitch.class
 com\swd\ccp\services\AuthenticationService.class
+com\swd\ccp\DTO\request_models\UpdateBookingRequest$UpdateBookingRequestBuilder.class
 com\swd\ccp\DTO\response_models\ProfileResponse.class
 com\swd\ccp\DTO\request_models\ListRequest$ListRequestBuilder.class
 com\swd\ccp\DTO\response_models\PitchResponse$PitchResponseBuilder.class
@@ -62,6 +63,7 @@ com\swd\ccp\DTO\response_models\LoginResponse.class
 com\swd\ccp\DTO\response_models\GetAllAccountAdminResponse.class
 com\swd\ccp\services\PitchService.class
 com\swd\ccp\enums\Role.class
+com\swd\ccp\DTO\request_models\UpdateBookingRequest.class
 com\swd\ccp\DTO\request_models\CreatePitchRequest$CreatePitchRequestBuilder.class
 com\swd\ccp\models\entity_models\ShopCustomerCommunication.class
 com\swd\ccp\services_implementors\AuthenticationServiceImpl.class

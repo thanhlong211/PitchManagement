@@ -1,6 +1,7 @@
 package com.swd.ccp.services;
 
 import com.swd.ccp.DTO.request_models.BookingRequest;
+import com.swd.ccp.DTO.request_models.UpdateBookingRequest;
 import com.swd.ccp.DTO.response_models.ResponseObject;
 import com.swd.ccp.models.entity_models.Booking;
 
@@ -12,4 +13,5 @@ public interface BookingService {
     List<Booking> getAllBookings();
     List<Booking> getBookingsByCustomerId(Integer customerId);
     List<Booking> getBookingsByShopId(Integer shopId);
+    ResponseObject updateBooking(UpdateBookingRequest bookingRequest);
 }

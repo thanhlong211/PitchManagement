@@ -10,6 +10,7 @@ import com.swd.ccp.models.entity_models.Manager;
 
 import com.swd.ccp.repositories.AccountRepo;
 
+import com.swd.ccp.repositories.BookingRepo;
 import com.swd.ccp.repositories.ManagerRepo;
 import com.swd.ccp.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final AccountRepo accountRepo;
 
-
+    private final BookingRepo bookingRepo;
     private final ManagerRepo managerRepo;
     private final PasswordEncoder passwordEncoder;
 
@@ -94,7 +95,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
             if (!account.getStatus().equals("active")) {
                 return LoginResponse.builder()
-                        .message("you have been banned!")
+                        .message("You have been banned!")
                         .status(false)
                         .build();
             }
@@ -102,9 +103,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             Optional<Manager> optionalManager = managerRepo.findByAccount(account);
             Manager manager = optionalManager.orElse(null);
 
+            // Fetch the number of active bookings for this account
+            int activeBookingCount = bookingRepo.countByAccountIdAndBookingStatus(account.getId(), "onGoing");
+
             if (manager == null) {
                 return LoginResponse.builder()
-                        .message("Login successfully")
+                        .message("Login successfully. You have " + activeBookingCount + " unpaid bookings.")
                         .status(true)
                         .shopId(0)
                         .account_name(account.getName())
@@ -113,7 +117,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             }
 
             return LoginResponse.builder()
-                    .message("Login successfully")
+                    .message("Login successfully. You have " + activeBookingCount + " active bookings.")
                     .shopId(manager.getShop().getId())
                     .status(true)
                     .account_name(account.getName())
@@ -126,6 +130,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .status(false)
                 .build();
     }
+
 
     private boolean isStringValid(String string) {
         return string != null && !string.isEmpty();
