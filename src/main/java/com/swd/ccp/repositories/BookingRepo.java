@@ -22,8 +22,9 @@ public interface BookingRepo extends JpaRepository<Booking, Integer> {
 
     List<Booking> findByPitchShopId(Integer shopId);
     int countByAccountIdAndBookingStatus(int accountId, String bookingStatus);
-    List<Booking> findByAccountIdAndBookingStatusOrderByIdDesc(Integer accountId, String activeStatus);
+/*    List<Booking> findByAccountIdAndBookingStatusOrderByIdDesc(Integer accountId, String activeStatus);*/
 
-    List<Booking> findByAccountIdAndBookingStatusAndPitchNameContainingIgnoreCaseOrderByIdDesc(Integer accountId, String activeStatus, String pitchName);
+    @Query("SELECT b FROM Booking b WHERE b.account.id = :customerId AND (b.bookingStatus = 'onGoing' OR b.bookingStatus = 'done') ORDER BY b.bookingStatus DESC, b.id DESC")
+    List<Booking> findByAccountIdAndBookingStatusOrderByIdDesc(Integer customerId);
 
 }

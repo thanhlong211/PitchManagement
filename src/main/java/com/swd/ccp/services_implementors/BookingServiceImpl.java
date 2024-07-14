@@ -172,7 +172,7 @@ public class BookingServiceImpl implements BookingService {
     }
     @Override
     public List<Booking> getBookingsByCustomerId(Integer customerId) {
-        return bookingRepository.findByAccountIdAndBookingStatusOrderByIdDesc(customerId, "onGoing");
+        return bookingRepository.findByAccountIdAndBookingStatusOrderByIdDesc(customerId);
     }
     @Override
     public List<Booking> getBookingsByShopId(Integer shopId) {
