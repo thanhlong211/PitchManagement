@@ -1,6 +1,7 @@
 package com.swd.ccp.repositories;
 
 import com.swd.ccp.models.entity_models.Booking;
+import com.swd.ccp.models.entity_models.Pitch;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -10,6 +11,8 @@ import java.util.List;
 
 public interface BookingRepo extends JpaRepository<Booking, Integer> {
     List<Booking> findByBookingDateAndStartBookingLessThanEqualAndEndBookingGreaterThanEqual(LocalDate bookingDate, LocalTime endBooking, LocalTime startBooking);
+    List<Booking> findByPitchAndBookingDateAndStartBookingLessThanEqualAndEndBookingGreaterThanEqual(
+            Pitch pitch, LocalDate bookingDate, LocalTime endBooking, LocalTime startBooking);
     List<Booking> findByBookingStatusNot(String status);
 
     @Query("SELECT b FROM Booking b WHERE b.bookingStatus <> 'deactive' AND b.account.status <> 'deactive' ")

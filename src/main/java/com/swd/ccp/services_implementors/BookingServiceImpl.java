@@ -48,7 +48,8 @@ public class BookingServiceImpl implements BookingService {
         }
 
         // Kiểm tra các booking xung đột
-        List<Booking> conflictingBookings = bookingRepository.findByBookingDateAndStartBookingLessThanEqualAndEndBookingGreaterThanEqual(
+        List<Booking> conflictingBookings = bookingRepository.findByPitchAndBookingDateAndStartBookingLessThanEqualAndEndBookingGreaterThanEqual(
+                pitch,
                 bookingRequest.getBookingDate(),
                 bookingRequest.getEndBooking(),
                 bookingRequest.getStartBooking()
@@ -140,7 +141,8 @@ public class BookingServiceImpl implements BookingService {
         }
 
         // Kiểm tra các booking xung đột
-        List<Booking> conflictingBookings = bookingRepository.findByBookingDateAndStartBookingLessThanEqualAndEndBookingGreaterThanEqual(
+        List<Booking> conflictingBookings = bookingRepository.findByPitchAndBookingDateAndStartBookingLessThanEqualAndEndBookingGreaterThanEqual(
+                pitch,
                 bookingRequest.getBookingDate(),
                 bookingRequest.getEndBooking(),
                 bookingRequest.getStartBooking()
