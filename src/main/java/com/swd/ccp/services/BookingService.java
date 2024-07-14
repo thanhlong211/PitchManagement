@@ -14,4 +14,5 @@ public interface BookingService {
     List<Booking> getBookingsByCustomerId(Integer customerId);
     List<Booking> getBookingsByShopId(Integer shopId);
     ResponseObject updateBooking(UpdateBookingRequest bookingRequest);
+    List<Booking> getDoneBookingsByCustomerId(Integer customerId);
 }

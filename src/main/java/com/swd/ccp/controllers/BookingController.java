@@ -61,6 +61,14 @@ public class BookingController {
                 .collect(Collectors.toList());
         return new ResponseEntity<>(bookingResponses, HttpStatus.OK);
     }
+    @GetMapping("/customer/done_booking/{customerId}")
+    public ResponseEntity<List<BookingResponse>> getListDoneByCustomerId(@PathVariable Integer customerId) {
+        List<Booking> bookings = bookingService.getDoneBookingsByCustomerId(customerId);
+        List<BookingResponse> bookingResponses = bookings.stream()
+                .map(BookingMapper::bookingToDTO)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(bookingResponses, HttpStatus.OK);
+    }
 
     @GetMapping("/owner/shop/all_booking/{shopId}")
     public ResponseEntity<List<BookingResponse>> getAllBookingsByShopId(@PathVariable Integer shopId) {
