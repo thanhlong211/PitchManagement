@@ -17,7 +17,7 @@ public class BookingResponse {
 
     private String pitchName;
     private Integer capacity;
-
+    private String shopName;
     private String bookingStatus;
 
     private Date createDate;

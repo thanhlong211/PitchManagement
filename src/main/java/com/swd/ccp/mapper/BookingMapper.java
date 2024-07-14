@@ -27,6 +27,7 @@ public class BookingMapper {
                 .pitchName(c.getPitch().getName())
                 .startBooking(c.getStartBooking())
                 .createDate(c.getCreateDate())
+                .shopName(c.getPitch().getShop().getName())
                 .build();
     }
 }
