@@ -105,10 +105,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
             // Fetch the number of active bookings for this account
             int activeBookingCount = bookingRepo.countByAccountIdAndBookingStatus(account.getId(), "onGoing");
-
+            String message;
+            if (activeBookingCount == 0) {
+                message = null;
+            } else {
+                message = "You have " + activeBookingCount + " unpaid bookings.";
+            }
             if (manager == null) {
                 return LoginResponse.builder()
-                        .message("Login successfully. You have " + activeBookingCount + " unpaid bookings.")
+                        .message(message)
                         .status(true)
                         .shopId(0)
                         .account_name(account.getName())
@@ -117,7 +122,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             }
 
             return LoginResponse.builder()
-                    .message("Login successfully. You have " + activeBookingCount + " active bookings.")
+                    .message(message)
                     .shopId(manager.getShop().getId())
                     .status(true)
                     .account_name(account.getName())

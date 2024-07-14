@@ -113,7 +113,13 @@ public class BookingServiceImpl implements BookingService {
     }
     @Override
     public ResponseObject updateBooking(UpdateBookingRequest bookingRequest) {
-        Optional<Booking> bookingOptional = bookingRepository.findById(bookingRequest.getCustomerId());
+        Optional<Account> customerOptional = accountRepo.findById(bookingRequest.getAccount_id());
+        Account customer = customerOptional.orElseThrow(() -> new IllegalArgumentException("No customer information found."));
+
+        Optional<Pitch> pitchOptional = pitchRepo.findById(bookingRequest.getPitch_id());
+        Pitch pitch = pitchOptional.orElseThrow(() -> new IllegalArgumentException("No pitch information found."));
+
+        Optional<Booking> bookingOptional = bookingRepository.findById(customer.getId());
         if (!bookingOptional.isPresent()) {
             return ResponseObject.builder()
                     .message("Booking not found")
@@ -147,6 +153,7 @@ public class BookingServiceImpl implements BookingService {
         }
 
         Booking booking = bookingOptional.get();
+        booking.setPitch(pitch);
         booking.setBookingDate(bookingRequest.getBookingDate());
         booking.setStartBooking(bookingRequest.getStartBooking());
         booking.setEndBooking(bookingRequest.getEndBooking());
@@ -163,7 +170,7 @@ public class BookingServiceImpl implements BookingService {
     }
     @Override
     public List<Booking> getBookingsByCustomerId(Integer customerId) {
-        return bookingRepository.findByAccountIdAndActiveStatus(customerId);
+        return bookingRepository.findByAccountIdAndBookingStatusOrderByIdDesc(customerId, "onGoing");
     }
     @Override
     public List<Booking> getBookingsByShopId(Integer shopId) {
