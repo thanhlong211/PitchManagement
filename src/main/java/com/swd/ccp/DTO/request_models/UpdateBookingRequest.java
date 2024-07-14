@@ -12,6 +12,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Builder
 public class UpdateBookingRequest {
+    private Integer booking_id;
     private String pitch_Name;
     private Integer  account_id;
     private LocalDate bookingDate;

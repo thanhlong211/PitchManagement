@@ -27,6 +27,8 @@ public class ShopMapper {
                 .closeTime(c.getCloseTime())
                 .status(c.getStatus())
                 .phone(c.getPhone())
+                .latitude(c.getLatitude())
+                .longitude(c.getLongitude())
                 .build();
     }
 }

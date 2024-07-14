@@ -18,4 +18,6 @@ public class ShopResponse {
     private String name;
     private String status;
     private String phone;
+    private String longitude;
+    private String latitude;
 }

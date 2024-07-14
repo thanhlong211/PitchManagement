@@ -120,7 +120,7 @@ public class BookingServiceImpl implements BookingService {
         Optional<Pitch> pitchOptional = pitchRepo.findByName(bookingRequest.getPitch_Name());
         Pitch pitch = pitchOptional.orElseThrow(() -> new IllegalArgumentException("No pitch information found."));
 
-        Optional<Booking> bookingOptional = bookingRepository.findById(customer.getId());
+        Optional<Booking> bookingOptional = bookingRepository.findById(bookingRequest.getBooking_id());
         if (!bookingOptional.isPresent()) {
             return ResponseObject.builder()
                     .message("Booking not found")
