@@ -117,7 +117,7 @@ public class BookingServiceImpl implements BookingService {
         Optional<Account> customerOptional = accountRepo.findById(bookingRequest.getAccount_id());
         Account customer = customerOptional.orElseThrow(() -> new IllegalArgumentException("No customer information found."));
 
-        Optional<Pitch> pitchOptional = pitchRepo.findById(bookingRequest.getPitch_id());
+        Optional<Pitch> pitchOptional = pitchRepo.findByName(bookingRequest.getPitch_Name());
         Pitch pitch = pitchOptional.orElseThrow(() -> new IllegalArgumentException("No pitch information found."));
 
         Optional<Booking> bookingOptional = bookingRepository.findById(customer.getId());
