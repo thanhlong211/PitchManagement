@@ -13,7 +13,6 @@ public class LoginResponse {
 
     private String message;
     private Integer shopId;
-
     private boolean status;
     private String account_name;
     private Integer account_id;

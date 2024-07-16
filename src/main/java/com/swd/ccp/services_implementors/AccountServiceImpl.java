@@ -28,7 +28,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<AccountDto> getAllAccountDTOs() {
-        List<Account> accounts = accountRepo.findAll();
+        List<Account> accounts = accountRepo.findAllNonAdminAccounts();
         return accountMapper.toDTOList(accounts);
     }
     @Override
