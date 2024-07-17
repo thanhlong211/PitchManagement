@@ -34,7 +34,7 @@ CREATE TABLE `account` (
   `status` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `account_chk_1` CHECK ((`role` between 0 and 2))
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (1,0,'demo','demo','$2a$10$V/TQL0J9BYI81JnX.Es6auGJMmfAt4p4YZxHqWEqIKfZXhdxn9NSa',NULL,'active'),(2,1,'owner','owner','$2a$10$PU1uXL46OnOH829ZJn6duO9U3VyiMJF1RAnZXhVFK7GepUDlBRWRO',NULL,'active'),(3,2,'admin','admin','$2a$10$7yCSMUU4AKUsuldmmeUyuOp8IgIEfk/9Xirg.hOYVmEEN9jSn3k0S',NULL,'active'),(4,0,'dat@gmail.com','dat@gmail.com','$2a$10$ZPaImaWfxI3l5I2uyN1CxeRvrr45fXADVMgUATLpyr6IfOU8GpQ1e',NULL,'active'),(5,0,'demo2','demo2','$2a$10$GKuUwWvyJ8qMVVFOaatWq.RHsF6LXgmbRn5F4FNHiW.mTC2JPXJ/C',NULL,'active');
+INSERT INTO `account` VALUES (1,0,'demo','demo','$2a$10$V/TQL0J9BYI81JnX.Es6auGJMmfAt4p4YZxHqWEqIKfZXhdxn9NSa',NULL,'active'),(2,1,'owner','owner','$2a$10$PU1uXL46OnOH829ZJn6duO9U3VyiMJF1RAnZXhVFK7GepUDlBRWRO',NULL,'active'),(3,2,'admin','admin','$2a$10$7yCSMUU4AKUsuldmmeUyuOp8IgIEfk/9Xirg.hOYVmEEN9jSn3k0S',NULL,'active'),(4,1,'dat@gmail.com','dat@gmail.com','$2a$10$ZPaImaWfxI3l5I2uyN1CxeRvrr45fXADVMgUATLpyr6IfOU8GpQ1e',NULL,'active'),(5,0,'demo2','demo2','$2a$10$GKuUwWvyJ8qMVVFOaatWq.RHsF6LXgmbRn5F4FNHiW.mTC2JPXJ/C',NULL,'active'),(6,1,'owner2','owner2','$2a$10$PU1uXL46OnOH829ZJn6duO9U3VyiMJF1RAnZXhVFK7GepUDlBRWRO',NULL,'active'),(7,1,'owner3','owner3','$2a$10$PU1uXL46OnOH829ZJn6duO9U3VyiMJF1RAnZXhVFK7GepUDlBRWRO',NULL,'active');
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -69,7 +69,7 @@ CREATE TABLE `booking` (
   KEY `FK6tamm9q1mpqaoub56q1y0umyu` (`pitch_id`),
   CONSTRAINT `FK6tamm9q1mpqaoub56q1y0umyu` FOREIGN KEY (`pitch_id`) REFERENCES `pitch` (`id`),
   CONSTRAINT `FK7hunottedmjhtdcvhv4sx6x4a` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -78,7 +78,7 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES (1,'2024-07-01','2024-06-30','20:00:00.000000',1,1,150,'18:00:00.000000','onGoing'),(1,'2024-07-02','2024-06-30','22:00:00.000000',2,2,200,'20:00:00.000000','onGoing'),(1,'2024-07-03','2024-06-30','21:00:00.000000',3,3,180,'19:00:00.000000','onGoing'),(1,'2024-07-04','2024-06-30','20:00:00.000000',4,4,250,'18:00:00.000000','onGoing'),(1,'2024-07-05','2024-06-30','22:00:00.000000',5,5,120,'20:00:00.000000','onGoing'),(4,'2024-07-10','2024-07-09','12:00:00.000000',6,1,150,'10:30:00.000000','onGoing'),(4,'2024-07-10','2024-07-09','05:00:00.000000',7,1,150,'04:00:00.000000','onGoing'),(4,'2024-07-11','2024-07-09','05:30:00.000000',8,1,150,'04:00:00.000000','onGoing'),(4,'2024-07-12','2024-07-09','07:00:00.000000',9,1,150,'05:30:00.000000','onGoing'),(4,'2024-07-14','2024-07-14','12:00:00.000000',10,1,150,'10:30:00.000000','onGoing');
+INSERT INTO `booking` VALUES (1,'2024-07-01','2024-06-30','20:00:00.000000',1,1,150,'18:00:00.000000','done'),(1,'2024-07-02','2024-06-30','22:00:00.000000',2,2,200,'20:00:00.000000','done'),(1,'2024-07-16','2024-06-30','09:00:00.000000',3,3,180,'07:30:00.000000','onGoing'),(1,'2024-07-04','2024-06-30','20:00:00.000000',4,4,250,'18:00:00.000000','onGoing'),(1,'2024-07-15','2024-06-30','15:22:00.000000',5,5,120,'14:21:00.000000','done'),(4,'2024-07-10','2024-07-09','12:00:00.000000',6,1,150,'10:30:00.000000','onGoing'),(4,'2024-07-10','2024-07-09','05:00:00.000000',7,1,150,'04:00:00.000000','onGoing'),(4,'2024-07-11','2024-07-09','05:30:00.000000',8,1,150,'04:00:00.000000','onGoing'),(4,'2024-07-12','2024-07-09','07:00:00.000000',9,1,150,'05:30:00.000000','onGoing'),(4,'2024-07-14','2024-07-14','12:00:00.000000',10,1,150,'10:30:00.000000','onGoing'),(4,'2024-07-14','2024-07-14','12:00:00.000000',11,4,250,'10:30:00.000000','onGoing'),(1,'2024-07-14','2024-07-14','15:20:11.000000',12,1,150,'14:20:11.000000','done');
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,7 +98,7 @@ CREATE TABLE `manager` (
   KEY `FKgv8o9ylwxq2nmbroq6yf54woa` (`shop_id`),
   CONSTRAINT `FKgv8o9ylwxq2nmbroq6yf54woa` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`id`),
   CONSTRAINT `FKs8vxfog0lwxdn09g7d71fkuxp` FOREIGN KEY (`account_id`) REFERENCES `account` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,6 +107,7 @@ CREATE TABLE `manager` (
 
 LOCK TABLES `manager` WRITE;
 /*!40000 ALTER TABLE `manager` DISABLE KEYS */;
+INSERT INTO `manager` VALUES (2,3,1),(4,4,2),(6,5,3),(7,6,4);
 /*!40000 ALTER TABLE `manager` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -136,7 +137,7 @@ CREATE TABLE `pitch` (
 
 LOCK TABLES `pitch` WRITE;
 /*!40000 ALTER TABLE `pitch` DISABLE KEYS */;
-INSERT INTO `pitch` VALUES (10,1,150,1,'Pitch A1','ACTIVE'),(15,2,200,1,'Pitch A2','ACTIVE'),(12,3,180,2,'Pitch B1','ACTIVE'),(20,4,250,3,'Pitch C1','ACTIVE'),(8,5,120,3,'Pitch C2','ACTIVE'),(20,6,150,1,'Pitch A','ACTIVE'),(25,7,175,2,'Pitch B','ACTIVE'),(30,8,200,3,'Pitch C','ACTIVE'),(22,9,160,4,'Pitch D','ACTIVE'),(27,10,180,5,'Pitch A','ACTIVE'),(35,11,210,6,'Pitch F','ACTIVE'),(18,12,140,7,'Pitch G','ACTIVE'),(40,13,220,8,'Pitch H','ACTIVE'),(28,14,185,9,'Pitch I','ACTIVE'),(33,15,205,10,'Pitch J','ACTIVE'),(21,16,155,11,'Pitch K','ACTIVE'),(29,17,190,12,'Pitch L','ACTIVE'),(24,18,170,13,'Pitch M','ACTIVE'),(32,19,200,14,'Pitch N','ACTIVE'),(20,20,150,1,'Pitch D','ACTIVE'),(25,21,175,2,'Pitch B','ACTIVE'),(30,22,200,3,'Pitch C','ACTIVE'),(22,23,160,4,'Pitch D','ACTIVE'),(27,24,180,5,'Pitch E','ACTIVE'),(35,25,210,6,'Pitch F','ACTIVE'),(18,26,140,7,'Pitch G','ACTIVE'),(40,27,220,8,'Pitch H','ACTIVE'),(28,28,185,9,'Pitch I','ACTIVE'),(33,29,205,10,'Pitch J','ACTIVE'),(21,30,155,11,'Pitch K','ACTIVE'),(29,31,190,12,'Pitch L','ACTIVE'),(24,32,170,13,'Pitch M','ACTIVE'),(32,33,200,14,'Pitch N','ACTIVE');
+INSERT INTO `pitch` VALUES (10,1,150,1,'Pitch A1','ACTIVE'),(15,2,200,1,'Pitch A2','ACTIVE'),(12,3,180,2,'Pitch B1','ACTIVE'),(20,4,250,3,'Pitch C1','ACTIVE'),(8,5,120,3,'Pitch C2','ACTIVE'),(20,6,150,1,'Pitch A2','ACTIVE'),(25,7,175,2,'Pitch B2','ACTIVE'),(30,8,200,3,'Pitch C','ACTIVE'),(22,9,160,4,'Pitch D','ACTIVE'),(27,10,180,5,'Pitch A1','ACTIVE'),(35,11,210,6,'Pitch F','ACTIVE'),(18,12,140,7,'Pitch G','ACTIVE'),(40,13,220,8,'Pitch H','ACTIVE'),(28,14,185,9,'Pitch I','ACTIVE'),(33,15,205,10,'Pitch J','ACTIVE'),(21,16,155,11,'Pitch K','ACTIVE'),(29,17,190,12,'Pitch L','ACTIVE'),(24,18,170,13,'Pitch M','ACTIVE'),(32,19,200,14,'Pitch N21','ACTIVE'),(20,20,150,1,'Pitch D21','ACTIVE'),(25,21,175,2,'Pitch B21','ACTIVE'),(30,22,200,3,'Pitch C1','ACTIVE'),(22,23,160,4,'Pitch D1','ACTIVE'),(27,24,180,5,'Pitch E44','ACTIVE'),(35,25,210,6,'Pitch F44','ACTIVE'),(18,26,140,7,'Pitch G22','ACTIVE'),(40,27,220,8,'Pitch H22','ACTIVE'),(28,28,185,9,'Pitch I33','ACTIVE'),(33,29,205,10,'Pitch J45','ACTIVE'),(21,30,155,11,'Pitch K32','ACTIVE'),(29,31,190,12,'Pitch L21','ACTIVE'),(24,32,170,13,'Pitch M23','ACTIVE'),(32,33,200,14,'Pitch N55','ACTIVE');
 /*!40000 ALTER TABLE `pitch` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -213,4 +214,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-14 12:04:31
+-- Dump completed on 2024-07-17 12:09:22
